@@ -1,0 +1,106 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath, amssymb, graphicx, hyperref}
+\usepackage{enumitem}
+\setlist{nosep}
+\usepackage[margin=1in]{geometry}
+
+\title{ LLM-Assisted Data Extraction (Human-in-the-Loop)}
+\author{ }
+\date{ }
+
+
+
+\begin{document}
+\maketitle
+
+\noindent \textbf{Note on data.} This problem set uses \textbf{synthetic} (simulated) text snippets provided in the code tutorial. The goal is to practice structured extraction with LLMs, auditing, and evaluation---not to make substantive claims about real events.
+
+\bigskip
+\noindent \textbf{LLM requirement.} Use an LLM that is \textbf{free to use}. Recommended: run a local open-source model with \texttt{Ollama} (e.g., \texttt{llama3.1:8b} or \texttt{mistral:7b-instruct}). Do \emph{not} use a paid API.
+
+\section*{Conceptual Questions}
+Please write three to ten sentence explanations for each of the following questions. \textbf{You are only required to answer ONE of the two questions below.} \bigskip
+ 
+\begin{enumerate}
+
+\item Explain why \textbf{schema-constrained} extraction (structured JSON fields with explicit missingness rules) can reduce hallucination relative to free-form summarization. Then explain one limitation: a way the model can still produce systematically wrong extractions even when it outputs ``valid'' JSON.
+
+\item Human-in-the-loop extraction requires evaluation. Explain why \textbf{spot-audits} and \textbf{precision/recall}-style evaluation are both needed. In your answer, define one failure mode that would be missed by evaluating only on a small gold set, and one failure mode that would be missed by auditing only a small random sample.
+
+  \end{enumerate}
+
+
+\section*{Applied Exercises}
+Use the code in the week's code tutorial and the lecture slides to answer the following questions.\bigskip
+
+  \begin{enumerate}
+  \setcounter{enumi}{2}
+
+\item \textbf{Replace the API call with a free LLM and generate structured extractions.}
+Start from the provided script (\texttt{llm\_human.py}) and modify it so it uses a \textbf{free} LLM.
+\begin{itemize}
+  \item Keep the \texttt{EventExtraction} schema and require the model to output a single JSON object that matches the schema.
+  \item Run extraction for all documents and save the output table to \texttt{outputs/extractions\_raw.csv}.
+  \item Report (briefly) which model you used (e.g., \texttt{llama3.1:8b}) and the exact prompt you used.
+\end{itemize}
+
+\bigskip
+\noindent \textbf{Implementation hint (Ollama).} If using Ollama, you may call the local server from Python via HTTP. For example:
+\begin{verbatim}
+# pip install requests
+import requests, json
+
+payload = {
+  "model": "llama3.1:8b",
+  "prompt": "Return ONLY valid JSON matching this schema: ...",
+  "stream": False
+}
+resp = requests.post("http://localhost:11434/api/generate", json=payload).json()
+text = resp["response"]
+record = json.loads(text)  # then validate with Pydantic
+\end{verbatim}
+
+\item \textbf{Uncertainty flags + audit sheet (human-in-the-loop).}
+Using your extracted dataset:
+\begin{itemize}
+  \item Create at least \textbf{four} mechanical review flags (examples: low confidence, missing date, missing country, \texttt{geo\_precision} is \texttt{unknown}, or empty actors list).
+  \item Create a \textbf{single} audit sheet CSV (similar to the tutorial) that includes:
+  \begin{enumerate}
+    \item the raw text,
+    \item the extracted fields,
+    \item the evidence quotes, and
+    \item blank columns for human corrections and failure-mode tags.
+  \end{enumerate}
+  \item Fill out the audit sheet for at least \textbf{five} documents and tag a failure mode for any incorrect extraction (e.g., \texttt{date\_missing}, \texttt{location\_vague}, \texttt{event\_type\_wrong}, \texttt{actor\_hallucination}).
+  \item Report two audit statistics:
+  \begin{enumerate}
+    \item the share of audited rows marked correct, and
+    \item the most common failure mode you observed (a small frequency table is fine).
+  \end{enumerate}
+\end{itemize}
+
+\item \textbf{Evaluation + prompt iteration.}
+Use the small gold set in the tutorial to evaluate event-type classification:
+\begin{itemize}
+  \item Compute and report a classification report (precision/recall/F1) for \texttt{event\_type}.
+  \item Create \textbf{two} prompt variants (e.g., different missingness instructions; stronger evidence requirements; a shorter event-type taxonomy explanation).
+  \item Re-run extraction and evaluation for both prompts, and present a \textbf{small table} comparing at least:
+  \begin{enumerate}
+    \item macro-F1,
+    \item accuracy, and
+    \item number of items flagged for human review.
+  \end{enumerate}
+  \item In 6--10 sentences, defend which prompt you would use in a larger project and why. Your answer must reference both (i) quantitative evaluation and (ii) auditing considerations.
+\end{itemize}
+
+\item \textbf{Challenge Question (Optional --- if you finish early):}
+Make the pipeline more robust to long documents or ambiguous text.
+Choose \textbf{ONE} option:
+\begin{enumerate}
+  \item \textbf{Chunking.} Split each document into 2--3 chunks, run extraction per chunk, and then write a short rule-based aggregation step that outputs one final record (e.g., choose the highest-confidence chunk; union actors; keep the most specific location). Discuss 2--4 sentences on why chunking changes failure modes.
+  \item \textbf{Abstention policy.} Add an explicit ``abstain'' rule: if the model is unsure, it must set \texttt{event\_type = other} and add an uncertainty flag. Compare (i) event-type macro-F1 and (ii) the review queue size before vs after abstention. Interpret the trade-off (5--8 sentences).
+\end{enumerate}
+
+\end{enumerate}
+
+\end{document}

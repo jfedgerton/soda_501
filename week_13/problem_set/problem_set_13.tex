@@ -1,0 +1,98 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath, amssymb, graphicx, hyperref}
+\usepackage{enumitem}
+\setlist{nosep}
+\usepackage[margin=1in]{geometry}
+
+\title{ Quantum Computing (Conceptual) and Compute Architectures}
+\author{ }
+\date{ }
+
+
+
+\begin{document}
+\maketitle
+
+\noindent \textbf{Note on tooling.} For this module, students are \textbf{not expected to run} the quantum computing code in class due to environment and dependency constraints. Instead, you will \textbf{read} the provided annotated Python script and answer questions that require careful reasoning about the mathematics and the compute implications.
+
+\bigskip
+\noindent \textbf{Reading.} \texttt{quantum\_computing.py} (non-executable teaching script).
+
+\section*{Conceptual Questions}
+Please write three to ten sentence explanations for each of the following questions. \textbf{You are only required to answer ONE of the two questions below.} \bigskip
+ 
+\begin{enumerate}
+
+\item Quantum state-vector simulation scales exponentially with the number of qubits. Explain why this creates a \textbf{parallel computing} problem. Then compare three compute options for accelerating large simulations: (i) multi-core CPU parallelism, (ii) GPUs, and (iii) TPUs. In your comparison, discuss (a) what parts of the computation parallelize well, (b) the memory bottleneck, and (c) one scenario where each option is likely to be preferred.
+
+\item Many research pipelines mix different compute workloads (hyperparameter sweeps, Monte Carlo, deep learning, large matrix operations). Explain how you would decide whether to use \textbf{CPU parallelism}, \textbf{GPU acceleration}, or a \textbf{TPU} for a given task. In your answer, give one example of a workload that is a good fit for each (CPU, GPU, TPU), and explain one common mistake researchers make when choosing hardware (e.g., ignoring data movement/I/O, not accounting for batch size, assuming ``GPU = always faster'').
+
+  \end{enumerate}
+
+
+\section*{Applied Exercises}
+Use the code in the week's code tutorial and the lecture slides to answer the following questions.\bigskip
+
+  \begin{enumerate}
+  \setcounter{enumi}{2}
+
+\item \textbf{Single-qubit reasoning (state vectors and gates).}
+Using the definitions in \texttt{quantum\_computing.py}:
+\begin{itemize}
+  \item Write the computational basis vectors $|0\rangle$ and $|1\rangle$.
+  \item Let $|\psi\rangle = \alpha|0\rangle + \beta|1\rangle$. Derive expressions for:
+  \begin{enumerate}
+    \item $X|\psi\rangle$ (NOT gate),
+    \item $Z|\psi\rangle$ (phase flip),
+    \item $H|0\rangle$ and the measurement probabilities of the outcome (0 vs 1).
+  \end{enumerate}
+  \item In 3--6 sentences, explain (in words) why applying $H$ to $|0\rangle$ leads to a 50/50 measurement outcome even though the transformation is deterministic.
+\end{itemize}
+
+\item \textbf{Two-qubit reasoning (tensor products and entanglement).}
+Using the script's Bell-state construction:
+\begin{itemize}
+  \item Show the algebraic steps that transform $|00\rangle$ into:
+  \[
+  |\Phi^+\rangle = \frac{1}{\sqrt{2}}(|00\rangle + |11\rangle)
+  \]
+  by applying (i) $H$ on the first qubit and then (ii) CNOT (control=first, target=second).
+  \item Using measurement logic, state:
+  \begin{enumerate}
+    \item $P(00)$, $P(01)$, $P(10)$, and $P(11)$ when measuring $|\Phi^+\rangle$ in the computational basis;
+    \item what you can infer about the second qubit after measuring the first qubit.
+  \end{enumerate}
+  \item In 4--8 sentences, explain what makes this state \emph{entangled} (i.e., why it cannot be written as $|a\rangle \otimes |b\rangle$).
+\end{itemize}
+
+\item \textbf{Compute implications: exponential growth, memory, and ``shots.''}
+This question connects the conceptual script to real compute constraints.
+\begin{itemize}
+  \item State-vector size: a pure state over $n$ qubits requires $2^n$ complex amplitudes. Assume complex numbers are stored as complex64 (8 bytes real + 8 bytes imag = 16 bytes).
+  \begin{enumerate}
+    \item Compute the approximate memory required (in GB) to store the full state vector for $n=25$, $n=30$, and $n=35$ qubits.
+    \item Briefly interpret what this implies for laptop vs workstation vs cluster computing.
+  \end{enumerate}
+  \item ``Shots'': In the Qiskit example, the circuit is run for many shots (e.g., 1000).
+  \begin{enumerate}
+    \item Explain why the observed counts are close to (but not exactly) 50/50.
+    \item Explain one reason why increasing shots improves estimation of probabilities but does \emph{not} remove bias due to noise on real hardware.
+  \end{enumerate}
+  \item In 5--8 sentences, propose one parallelization strategy for a quantum workflow:
+  \begin{enumerate}
+    \item either parallelize over \textbf{shots} (embarrassingly parallel sampling),
+    \item or parallelize the \textbf{state-vector} computation (harder; memory-bound),
+    \item and state whether you would prefer CPU parallelism, GPU, or TPU for your chosen strategy and why.
+  \end{enumerate}
+\end{itemize}
+
+\item \textbf{Challenge Question (Optional --- if you finish early):}
+Choose \textbf{ONE} option:
+\begin{enumerate}
+  \item \textbf{Bell states extension.} Write the algebra (and/or circuit description) to construct at least \textbf{two} additional Bell states (e.g., $\Phi^-$ and $\Psi^+$). For each, state the measurement outcome support (which bitstrings can appear) and the associated probabilities.
+  \item \textbf{Compute plan memo.} Write a short (8--12 sentence) ``compute plan'' for running a larger simulation study (e.g., a sweep over circuit depths and noise levels). Your memo must mention: (i) how you would use parallel computing (what is parallelized), (ii) whether you would use CPU, GPU, or TPU and why, and (iii) one reproducibility step you would take (seeds, environment capture, logging, artifact saving).
+\end{enumerate}
+
+\end{enumerate}
+
+\end{document}

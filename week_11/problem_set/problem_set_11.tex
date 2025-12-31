@@ -1,0 +1,100 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath, amssymb, graphicx, hyperref}
+\usepackage{enumitem}
+\setlist{nosep}
+\usepackage[margin=1in]{geometry}
+
+\title{ Measurement Error and Placebo Tests}
+\author{ }
+\date{ }
+
+
+
+\begin{document}
+\maketitle
+
+\noindent \textbf{Note on data.} This problem set uses \textbf{synthetic} (simulated) data generated in the provided Python tutorial script. The goal is to understand how measurement error distorts inference and how placebo tests help diagnose pipeline artifacts---not to make substantive claims about real-world outcomes.
+
+\section*{Conceptual Questions}
+Please write three to ten sentence explanations for each of the following questions. \textbf{You are only required to answer ONE of the two questions below.} \bigskip
+ 
+\begin{enumerate}
+
+\item Define \textbf{measurement error} and explain why it can bias regression estimates. In your answer, distinguish between (i) measurement error in a \emph{predictor} that is not a confounder and (ii) measurement error in a \emph{confounder}. Explain why the second case can bias the estimated treatment effect even when the model ``controls for'' the noisy confounder.
+
+\item Placebo tests are often described as ``pipeline diagnostics.'' Explain what an \textbf{outcome placebo} and a \textbf{treatment permutation placebo} are. For each, describe what you would expect to see if the analysis pipeline is behaving well, and give one concrete reason a placebo test might fail even when the underlying causal effect is truly zero.
+
+  \end{enumerate}
+
+
+\section*{Applied Exercises}
+Use the code in the week's code tutorial and the lecture slides to answer the following questions.\bigskip
+
+  \begin{enumerate}
+  \setcounter{enumi}{2}
+
+\item \textbf{Measurement error simulation: bias and attenuation.}
+Using the provided tutorial script (\texttt{measurement\_error\_placebo\_tests.py}):
+\begin{itemize}
+  \item Run the script end-to-end and confirm it writes the outputs (CSV + figures) to \texttt{outputs/} and \texttt{figures/}.
+  \item Using \texttt{outputs/measurement\_error\_results.csv}, make a clean table that reports, for each \texttt{sigma\_u}:
+  \begin{enumerate}
+    \item \texttt{tau\_oracle\_mean}, \texttt{tau\_naive\_mean}, \texttt{tau\_cal\_mean}, and
+    \item \texttt{beta\_oracle\_mean}, \texttt{beta\_naive\_mean}, \texttt{beta\_cal\_mean}.
+  \end{enumerate}
+  \item In 6--10 sentences, interpret the two figures:
+  \begin{enumerate}
+    \item \texttt{figures/measurement\_error\_tau\_vs\_sigma.png} and
+    \item \texttt{figures/measurement\_error\_beta\_vs\_sigma.png}.
+  \end{enumerate}
+  Your interpretation must address:
+  \begin{enumerate}
+    \item how and why the naive estimate of the treatment effect changes as \texttt{sigma\_u} increases,
+    \item attenuation of the confounder coefficient (why the estimated confounder effect shrinks), and
+    \item the difference between the ``oracle'' and ``naive'' estimands in this simulation.
+  \end{enumerate}
+\end{itemize}
+
+\item \textbf{Validation subsample and regression calibration.}
+The tutorial implements a simple calibration approach using a validation subsample where \texttt{x\_true} is observed.
+\begin{itemize}
+  \item Change the validation share to \textbf{three} values (e.g., 0.05, 0.20, 0.50) by editing \texttt{validation\_share}.
+  \item Hold \texttt{sigma\_u} fixed at \textbf{one} moderate value (e.g., \texttt{sigma\_u = 1.0}) and rerun the simulation for each validation-share setting (keeping all other settings the same).
+  \item Report, for each validation share, the mean calibrated treatment estimate \texttt{tau\_cal\_mean} and compare it to the naive estimate \texttt{tau\_naive\_mean}.
+  \item In 6--10 sentences, explain what changes as the validation sample grows. Your discussion must include:
+  \begin{enumerate}
+    \item why calibration can help when the confounder is measured with error,
+    \item why calibration is not ``magic'' (what assumptions it relies on), and
+    \item one reason calibration might fail or remain biased in real social data.
+  \end{enumerate}
+\end{itemize}
+
+\item \textbf{Placebo tests: outcome placebo and treatment permutation.}
+Using the same script:
+\begin{itemize}
+  \item Outcome placebo: report the estimated coefficient on \texttt{d} in the placebo regression and explain why it should be close to zero.
+  \item Treatment permutation placebo: run the permutation test and report:
+  \begin{enumerate}
+    \item the observed naive estimate \texttt{tau\_hat\_obs},
+    \item the empirical two-sided p-value,
+    \item a histogram figure of the permutation distribution with the observed estimate marked.
+  \end{enumerate}
+  \item In 6--10 sentences, interpret what the permutation distribution is telling you. Your interpretation must address:
+  \begin{enumerate}
+    \item what the null hypothesis is in the permutation test,
+    \item what it means if the observed estimate is extreme relative to the permutation distribution, and
+    \item one way placebo tests can detect pipeline problems (e.g., leakage, overfitting, coding errors).
+  \end{enumerate}
+\end{itemize}
+
+\item \textbf{Challenge Question (Optional --- if you finish early):}
+Make the placebo tests more informative by strengthening the null distribution.
+Choose \textbf{ONE} option:
+\begin{enumerate}
+  \item \textbf{Block permutation.} Permute \texttt{d} \emph{within bins of} \texttt{x\_obs} (e.g., quintiles) instead of permuting globally. Compare the resulting placebo distribution to the global permutation distribution and discuss (5--10 sentences) what changes and why.
+  \item \textbf{P-value calibration.} Repeat the entire simulation under a \emph{true null} where \texttt{tau = 0} (set the treatment effect to zero in the DGP), and run the permutation placebo test across at least 100 simulated datasets. Plot the histogram of empirical p-values. In 5--10 sentences, interpret whether the p-values look approximately uniform and what that implies about your testing procedure.
+\end{enumerate}
+
+\end{enumerate}
+
+\end{document}
