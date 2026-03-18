@@ -1,7 +1,7 @@
+
 ###############################################################################
 # Measurement Error + Placebo Tests Tutorial: Python
 # Author: Jared Edgerton
-# Date: (use your local date/time)
 #
 # This script demonstrates:
 #   1) Classic measurement error in covariates (X_true vs X_observed)
@@ -10,6 +10,8 @@
 #   4) Placebo tests as pipeline diagnostics:
 #        - Outcome placebo (negative control outcome)
 #        - Treatment permutation placebo (randomization inference)
+#
+# Dependencies: numpy, pandas, matplotlib (no statsmodels required)
 #
 # Teaching note:
 # - Written as a sequential workflow so students can see how the pipeline unfolds.
@@ -20,14 +22,12 @@
 # -----------------------------------------------------------------------------
 # Setup
 # -----------------------------------------------------------------------------
-# Recommended installs (run once in terminal):
-#   pip install numpy pandas matplotlib statsmodels
-
 import os
 import numpy as np
 import pandas as pd
+import matplotlib
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-import statsmodels.formula.api as smf
 
 # Reproducibility
 np.random.seed(123)
@@ -38,6 +38,13 @@ os.makedirs("data_processed", exist_ok=True)
 os.makedirs("figures", exist_ok=True)
 os.makedirs("outputs", exist_ok=True)
 os.makedirs("src", exist_ok=True)
+
+# -----------------------------------------------------------------------------
+# Helper: OLS via numpy (no statsmodels needed)
+# Returns dict with coefficient names and values
+# -----------------------------------------------------------------------------
+# We use numpy.linalg.lstsq to fit OLS: y = X @ beta
+# This avoids requiring statsmodels or scipy.
 
 # -----------------------------------------------------------------------------
 # Part 1: A simple data generating process with confounding
@@ -88,7 +95,7 @@ df_base = pd.DataFrame(
 
 print("\n--- Data preview ---")
 print(df_base.head())
-print("\nTreatment rate:", df_base["d"].mean())
+print("\nTreatment rate:", round(df_base["d"].mean(), 4))
 
 # -----------------------------------------------------------------------------
 # Part 2: Measurement error settings
@@ -136,37 +143,38 @@ for sigma_u in sigma_u_grid:
         u = np.random.normal(loc=0.0, scale=sigma_u, size=n)
         x_obs = x_true + u
 
-        df = df_base.copy()
-        df["x_obs"] = x_obs
+        # Build design matrices with intercept column
+        ones = np.ones(n)
 
-        # (A) Oracle regression: y ~ d + x_true
-        fit_oracle = smf.ols("y ~ d + x_true", data=df).fit()
+        # (A) Oracle regression: y ~ 1 + d + x_true
+        X_oracle = np.column_stack([ones, d, x_true])
+        coef_oracle, _, _, _ = np.linalg.lstsq(X_oracle, y, rcond=None)
+        # coef_oracle: [intercept, d, x_true]
+        tau_oracle_list.append(coef_oracle[1])
+        beta_oracle_list.append(coef_oracle[2])
 
-        tau_oracle_list.append(fit_oracle.params["d"])
-        beta_oracle_list.append(fit_oracle.params["x_true"])
-
-        # (B) Naive regression with error-prone confounder: y ~ d + x_obs
-        fit_naive = smf.ols("y ~ d + x_obs", data=df).fit()
-
-        tau_naive_list.append(fit_naive.params["d"])
-        beta_naive_list.append(fit_naive.params["x_obs"])
+        # (B) Naive regression: y ~ 1 + d + x_obs
+        X_naive = np.column_stack([ones, d, x_obs])
+        coef_naive, _, _, _ = np.linalg.lstsq(X_naive, y, rcond=None)
+        tau_naive_list.append(coef_naive[1])
+        beta_naive_list.append(coef_naive[2])
 
         # (C) Regression calibration (validation subsample):
-        #     estimate x_true ~ x_obs on validation sample, then predict x_hat for all.
-        df_val = df.loc[is_validation, ["x_true", "x_obs"]].copy()
-        fit_cal = smf.ols("x_true ~ x_obs", data=df_val).fit()
+        #     estimate x_true ~ x_obs on validation sample, predict x_hat for all.
+        ones_val = np.ones(int(validation_share * n))
+        X_cal_val = np.column_stack([ones_val, x_obs[is_validation]])
+        coef_cal, _, _, _ = np.linalg.lstsq(X_cal_val, x_true[is_validation], rcond=None)
+        x_hat = coef_cal[0] + coef_cal[1] * x_obs
 
-        df["x_hat"] = fit_cal.predict(df[["x_obs"]])
+        X_calibrated = np.column_stack([ones, d, x_hat])
+        coef_calibrated, _, _, _ = np.linalg.lstsq(X_calibrated, y, rcond=None)
+        tau_cal_list.append(coef_calibrated[1])
+        beta_cal_list.append(coef_calibrated[2])
 
-        fit_calibrated = smf.ols("y ~ d + x_hat", data=df).fit()
-
-        tau_cal_list.append(fit_calibrated.params["d"])
-        beta_cal_list.append(fit_calibrated.params["x_hat"])
-
-        # Outcome placebo: y_placebo ~ d + x_obs
-        # If the pipeline is "finding effects" here, that suggests bias/artifacts.
-        fit_placebo = smf.ols("y_placebo ~ d + x_obs", data=df).fit()
-        tau_placebo_list.append(fit_placebo.params["d"])
+        # Outcome placebo: y_placebo ~ 1 + d + x_obs
+        X_placebo = np.column_stack([ones, d, x_obs])
+        coef_placebo, _, _, _ = np.linalg.lstsq(X_placebo, y_placebo, rcond=None)
+        tau_placebo_list.append(coef_placebo[1])
 
     # Summaries per sigma_u
     rows.append(
@@ -194,7 +202,7 @@ for sigma_u in sigma_u_grid:
 
 results = pd.DataFrame(rows)
 print("\n--- Summary (means) ---")
-print(results[["sigma_u", "tau_true", "tau_oracle_mean", "tau_naive_mean", "tau_cal_mean", "tau_placebo_mean"]])
+print(results[["sigma_u", "tau_true", "tau_oracle_mean", "tau_naive_mean", "tau_cal_mean", "tau_placebo_mean"]].to_string(index=False))
 
 results.to_csv("outputs/measurement_error_results.csv", index=False)
 
@@ -241,11 +249,10 @@ sigma_u_perm = 1.0
 u_perm = np.random.normal(loc=0.0, scale=sigma_u_perm, size=n)
 x_obs_perm = x_true + u_perm
 
-df_perm_base = df_base.copy()
-df_perm_base["x_obs"] = x_obs_perm
-
-fit_obs = smf.ols("y ~ d + x_obs", data=df_perm_base).fit()
-tau_hat_obs = float(fit_obs.params["d"])
+ones = np.ones(n)
+X_obs = np.column_stack([ones, d, x_obs_perm])
+coef_obs, _, _, _ = np.linalg.lstsq(X_obs, y, rcond=None)
+tau_hat_obs = float(coef_obs[1])
 
 print("\n--- Permutation placebo setup ---")
 print("sigma_u used:", sigma_u_perm)
@@ -255,12 +262,10 @@ B = 500
 tau_perm = []
 
 for b in range(B):
-    d_perm = np.random.permutation(df_perm_base["d"].values)
-    df_b = df_perm_base.copy()
-    df_b["d_perm"] = d_perm
-
-    fit_b = smf.ols("y ~ d_perm + x_obs", data=df_b).fit()
-    tau_perm.append(float(fit_b.params["d_perm"]))
+    d_perm = np.random.permutation(d)
+    X_b = np.column_stack([ones, d_perm, x_obs_perm])
+    coef_b, _, _, _ = np.linalg.lstsq(X_b, y, rcond=None)
+    tau_perm.append(float(coef_b[1]))
 
 tau_perm = np.array(tau_perm)
 

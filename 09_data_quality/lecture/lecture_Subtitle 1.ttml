@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tt xml:lang="en" xmlns="http://www.w3.org/ns/ttml" xmlns:ttm="http://www.w3.org/ns/ttml#metadata" xmlns:tts="http://www.w3.org/ns/ttml#styling" xmlns:ttp="http://www.w3.org/ns/ttml#parameter" xmlns:ittp="http://www.w3.org/ns/ttml/profile/imsc1#parameter" xmlns:itts="http://www.w3.org/ns/ttml/profile/imsc1#styling" ttp:profile="http://www.w3.org/ns/ttml/profile/imsc1/text" ttp:frameRate="24" ttp:timeBase="media">
+  <head>
+    <styling>
+      <style xml:id="s0" tts:color="#ffffff" tts:opacity="1" tts:fontSize="100%" tts:fontFamily="proportionalSansSerif" tts:fontWeight="bold" tts:textOutline="#ffffff 1px" tts:textAlign="center"/>
+    </styling>
+    <layout>
+      <region xml:id="r0" tts:origin="15.320% 74.884%" tts:extent="69.375% 10.278%" tts:displayAlign="center"/>
+    </layout>
+  </head>
+  <body>
+    <div xml:id="d0" region="r0" style="s0">
+      <p begin="01:00:02.541" end="01:00:03.833">Hi everyone, welcome. Today's</p>
+      <p begin="01:00:03.833" end="01:00:04.875">lecture is about a foundational</p>
+      <p begin="01:00:04.875" end="01:00:07.375">idea. In big social data,</p>
+      <p begin="01:00:07.375" end="01:00:08.916">more observations do not guarantee</p>
+      <p begin="01:00:08.916" end="01:00:10.583">better inference. So the central</p>
+      <p begin="01:00:10.583" end="01:00:11.500">problem is not always</p>
+      <p begin="01:00:11.500" end="01:00:13.208">sample size, it's going to be</p>
+      <p begin="01:00:13.208" end="01:00:15.583">measurement quality. The scale</p>
+      <p begin="01:00:15.583" end="01:00:17.375">changes how bias behaves.</p>
+      <p begin="01:00:18.708" end="01:00:20.333">So solid-planetary bias may look</p>
+      <p begin="01:00:20.333" end="01:00:22.500">like noise, large-sample bias can</p>
+      <p begin="01:00:22.500" end="01:00:23.291">look like precision.</p>
+      <p begin="01:00:24.625" end="01:00:33.583">Data quality determines what can be</p>
+      <p begin="01:00:33.583" end="01:00:35.958">learned. Data quality shapes what</p>
+      <p begin="01:00:35.958" end="01:00:37.041">populations are visible,</p>
+      <p begin="01:00:37.416" end="01:00:38.875">what events are recorded, what</p>
+      <p begin="01:00:38.875" end="01:00:41.000">variation is observable, how</p>
+      <p begin="01:00:41.000" end="01:00:42.208">uncertainty propagates through</p>
+      <p begin="01:00:42.208" end="01:00:45.791">models. So the key sentence here is</p>
+      <p begin="01:00:45.791" end="01:00:47.791">poor data quality cannot be fixed</p>
+      <p begin="01:00:47.791" end="01:00:49.458">downstream. So what does</p>
+      <p begin="01:00:49.500" end="01:00:51.541">that mean? Suppose your data set</p>
+      <p begin="01:00:51.541" end="01:00:53.000">systematically excludes rural</p>
+      <p begin="01:00:53.000" end="01:00:54.875">populations. You can add controls,</p>
+      <p begin="01:00:55.416" end="01:00:56.916">you can apply machine learning, you</p>
+      <p begin="01:00:56.916" end="01:00:57.958">can fit Bayesian hierarchical</p>
+      <p begin="01:00:57.958" end="01:00:59.500">models, but the rural</p>
+      <p begin="01:00:59.500" end="01:01:01.000">population is missing, it is</p>
+      <p begin="01:01:01.000" end="01:01:03.208">missing. Stagistical adjustment</p>
+      <p begin="01:01:03.208" end="01:01:04.416">cannot reconstruct</p>
+      <p begin="01:01:04.416" end="01:01:05.583">unobserved structure</p>
+      <p begin="01:01:05.583" end="01:01:07.833">without assumptions. So the key</p>
+      <p begin="01:01:07.833" end="01:01:09.666">principle is, inference</p>
+      <p begin="01:01:09.666" end="01:01:10.875">is bounded by measurement.</p>
+      <p begin="01:01:10.916" end="01:01:18.000">So now let's define several common</p>
+      <p begin="01:01:18.000" end="01:01:20.500">threats. We have this idea called</p>
+      <p begin="01:01:20.500" end="01:01:23.166">coverage bias. Covers bias</p>
+      <p begin="01:01:23.166" end="01:01:24.750">occurs when parts of the target</p>
+      <p begin="01:01:24.750" end="01:01:25.916">population are systematically</p>
+      <p begin="01:01:25.916" end="01:01:27.833">excluded. For example,</p>
+      <p begin="01:01:28.125" end="01:01:29.416">platform users does not equal</p>
+      <p begin="01:01:29.416" end="01:01:31.708">population, digitally visible groups</p>
+      <p begin="01:01:31.708" end="01:01:35.208">does not equal all groups. In some</p>
+      <p begin="01:01:35.208" end="01:01:36.875">large data collection such as event</p>
+      <p begin="01:01:36.875" end="01:01:38.500">data, we use newspaper articles,</p>
+      <p begin="01:01:38.750" end="01:01:39.125">there's going to be a</p>
+      <p begin="01:01:39.166" end="01:01:42.375">systematic bias for events that are</p>
+      <p begin="01:01:42.375" end="01:01:43.958">covered in major areas where there's</p>
+      <p begin="01:01:43.958" end="01:01:45.583">journalists present and</p>
+      <p begin="01:01:45.583" end="01:01:47.208">not in rural populations. So if you</p>
+      <p begin="01:01:47.208" end="01:01:48.666">look at the distribution of violence</p>
+      <p begin="01:01:48.666" end="01:01:50.250">and in the place I got</p>
+      <p begin="01:01:50.250" end="01:01:51.541">beginning to in for example, maybe</p>
+      <p begin="01:01:51.541" end="01:01:53.375">there is over-reporting in place</p>
+      <p begin="01:01:53.375" end="01:01:54.541">where journalists are present</p>
+      <p begin="01:01:54.541" end="01:01:56.083">and under-reporting in places when</p>
+      <p begin="01:01:56.083" end="01:01:58.458">they're not for using newspaper</p>
+      <p begin="01:01:58.458" end="01:01:59.916">articles for inference there.</p>
+      <p begin="01:02:02.416" end="01:02:04.958">The next is measurement error. So</p>
+      <p begin="01:02:04.958" end="01:02:06.291">measurement error occurs when the</p>
+      <p begin="01:02:06.291" end="01:02:07.208">reported value is different</p>
+      <p begin="01:02:07.333" end="01:02:10.458">from the true value. So this can be</p>
+      <p begin="01:02:10.458" end="01:02:12.083">a random error or noise or</p>
+      <p begin="01:02:12.083" end="01:02:13.625">systematic error which is bias.</p>
+      <p begin="01:02:15.083" end="01:02:16.750">Systematic error is more dangerous</p>
+      <p begin="01:02:16.750" end="01:02:18.625">because it affects our coefficient</p>
+      <p begin="01:02:18.625" end="01:02:21.250">estimates. But random</p>
+      <p begin="01:02:21.333" end="01:02:24.208">error can also be annoying if it's</p>
+      <p begin="01:02:24.208" end="01:02:25.458">quite large in many cases and it</p>
+      <p begin="01:02:25.458" end="01:02:26.750">just will detect a statistically</p>
+      <p begin="01:02:26.791" end="01:02:28.583">significant effect before it just</p>
+      <p begin="01:02:28.583" end="01:02:32.708">makes detecting it much harder. Then</p>
+      <p begin="01:02:32.708" end="01:02:33.666">we have selection effects.</p>
+      <p begin="01:02:34.000" end="01:02:36.166">Selection effects arise when</p>
+      <p begin="01:02:36.166" end="01:02:37.958">inclusion and dataset depends on</p>
+      <p begin="01:02:37.958" end="01:02:38.625">characteristics</p>
+      <p begin="01:02:38.625" end="01:02:39.500">related to the outcome.</p>
+      <p begin="01:02:41.666" end="01:02:43.208">Then we have temporal instability.</p>
+      <p begin="01:02:44.291" end="01:02:45.041">Temporal instability</p>
+      <p begin="01:02:45.041" end="01:02:46.416">occurs when the data generating</p>
+      <p begin="01:02:46.500" end="01:02:49.750">process changes over time. And the</p>
+      <p begin="01:02:49.750" end="01:02:51.458">critical point is going to be that</p>
+      <p begin="01:02:51.458" end="01:02:52.708">our scale are going to amplify</p>
+      <p begin="01:02:52.708" end="01:02:55.791">these problems for whether we're</p>
+      <p begin="01:02:55.791" end="01:02:57.291">interacting with. So very large</p>
+      <p begin="01:02:57.291" end="01:02:59.041">data, we're going to get things like</p>
+      <p begin="01:02:59.083" end="01:03:02.333">our confidence is going to grow for</p>
+      <p begin="01:03:02.333" end="01:03:04.333">it. Our precision is not going to be</p>
+      <p begin="01:03:04.333" end="01:03:06.041">correctness and your</p>
+      <p begin="01:03:06.041" end="01:03:08.000">estimates can be wrong for it. So</p>
+      <p begin="01:03:08.000" end="01:03:09.541">we'll have narrow confidence</p>
+      <p begin="01:03:09.541" end="01:03:11.375">intervals as our data size grows,</p>
+      <p begin="01:03:12.125" end="01:03:14.000">but the inference is going to be</p>
+      <p begin="01:03:14.000" end="01:03:15.958">wrong against these problems here.</p>
+      <p begin="01:03:23.583" end="01:03:25.458">So bias does not enter only at</p>
+      <p begin="01:03:25.458" end="01:03:26.958">modeling. It can enter at our data</p>
+      <p begin="01:03:26.958" end="01:03:28.833">collection. Data collection</p>
+      <p begin="01:03:28.875" end="01:03:30.916">determines who has observed what</p>
+      <p begin="01:03:30.916" end="01:03:33.458">behaviors are captured, what events</p>
+      <p begin="01:03:33.458" end="01:03:34.916">are recorded, and where it</p>
+      <p begin="01:03:34.916" end="01:03:37.250">remains invisible. Here's the</p>
+      <p begin="01:03:37.250" end="01:03:39.208">critical framing. Bias are often</p>
+      <p begin="01:03:39.208" end="01:03:42.000">structural, not accidental. So</p>
+      <p begin="01:03:42.000" end="01:03:43.416">structural bias is going to arise</p>
+      <p begin="01:03:43.416" end="01:03:46.625">from institutional design, platform</p>
+      <p begin="01:03:46.625" end="01:03:49.291">architecture, economic incentives,</p>
+      <p begin="01:03:50.666" end="01:03:52.583">regulatory environments, and</p>
+      <p begin="01:03:52.583" end="01:03:55.500">resource disparities. So what's an</p>
+      <p begin="01:03:55.500" end="01:03:57.250">example of this? News organizations</p>
+      <p begin="01:03:57.625" end="01:03:59.583">cluster in cities, social media</p>
+      <p begin="01:03:59.583" end="01:04:01.791">platforms skew younger, satellite</p>
+      <p begin="01:04:01.791" end="01:04:03.458">images fails when there's cloud</p>
+      <p begin="01:04:03.458" end="01:04:05.375">coverage. These are not mistakes.</p>
+      <p begin="01:04:05.750" end="01:04:07.083">These are features of the system.</p>
+      <p begin="01:04:07.291" end="01:04:08.291">And these are ways that our data</p>
+      <p begin="01:04:08.291" end="01:04:16.208">might be biased. So media-based</p>
+      <p begin="01:04:16.208" end="01:04:18.041">event data are common in political</p>
+      <p begin="01:04:18.041" end="01:04:19.250">science. They rely on news</p>
+      <p begin="01:04:19.250" end="01:04:21.000">reporting. But news reporting</p>
+      <p begin="01:04:21.000" end="01:04:22.208">reflects things like journals,</p>
+      <p begin="01:04:22.208" end="01:04:22.708">locations,</p>
+      <p begin="01:04:23.125" end="01:04:24.625">editorial priorities, press</p>
+      <p begin="01:04:24.666" end="01:04:26.750">freedom, funding constraints, and</p>
+      <p begin="01:04:26.750" end="01:04:28.625">political risk. So that's a place</p>
+      <p begin="01:04:28.625" end="01:04:30.875">for reporting bias. So events in</p>
+      <p begin="01:04:30.875" end="01:04:32.708">capital cities, wealthy countries,</p>
+      <p begin="01:04:32.916" end="01:04:34.500">politically salient contexts are</p>
+      <p begin="01:04:34.500" end="01:04:35.500">more likely to be reported.</p>
+      <p begin="01:04:36.250" end="01:04:38.000">So when analyzing event counts, you</p>
+      <p begin="01:04:38.000" end="01:04:40.000">should ask, are we measuring events?</p>
+      <p begin="01:04:40.000" end="01:04:41.208">Are we measuring reporting</p>
+      <p begin="01:04:41.208" end="01:04:47.000">intensity? Geographically reporting</p>
+      <p begin="01:04:47.000" end="01:04:48.750">bias has specific consequences.</p>
+      <p begin="01:04:49.250" end="01:04:50.791">Well, so we might have something</p>
+      <p begin="01:04:50.791" end="01:04:53.250">like an urban bias, underreporting</p>
+      <p begin="01:04:53.250" end="01:04:55.500">in rural areas, underreporting in</p>
+      <p begin="01:04:55.500" end="01:04:57.333">authoritarian states, and</p>
+      <p begin="01:04:57.333" end="01:04:59.541">underreporting in conflict zones. So</p>
+      <p begin="01:04:59.541" end="01:05:01.166">the key conceptual warning for this</p>
+      <p begin="01:05:01.166" end="01:05:02.583">is absence of reports</p>
+      <p begin="01:05:02.583" end="01:05:04.750">does not imply absence of events.</p>
+      <p begin="01:05:05.750" end="01:05:08.458">This is an epistemological issue. So</p>
+      <p begin="01:05:08.458" end="01:05:09.833">your dataset might encode</p>
+      <p begin="01:05:09.916" end="01:05:11.791">event occurrence, visibility,</p>
+      <p begin="01:05:11.791" end="01:05:13.125">probability, and reporting</p>
+      <p begin="01:05:13.125" end="01:05:14.875">infrastructure. So</p>
+      <p begin="01:05:14.875" end="01:05:15.458">these are distinct</p>
+      <p begin="01:05:15.500" end="01:05:17.708">processes. If you model only</p>
+      <p begin="01:05:17.708" end="01:05:19.125">observed counts without modeling</p>
+      <p begin="01:05:19.125" end="01:05:21.250">reporting intensity, you risk</p>
+      <p begin="01:05:21.250" end="01:05:29.125">inflating them. So social media data</p>
+      <p begin="01:05:29.125" end="01:05:30.541">are frequently used in big data</p>
+      <p begin="01:05:30.541" end="01:05:32.458">research, but they represent</p>
+      <p begin="01:05:32.458" end="01:05:34.041">things like platform-specific user</p>
+      <p begin="01:05:34.041" end="01:05:35.875">populations, non-random</p>
+      <p begin="01:05:35.875" end="01:05:36.541">participation,</p>
+      <p begin="01:05:37.416" end="01:05:38.750">algorithm ranking effects,</p>
+      <p begin="01:05:39.083" end="01:05:40.708">and strategic self-presentation.</p>
+      <p begin="01:05:41.625" end="01:05:42.916">Users are not representative</p>
+      <p begin="01:05:42.916" end="01:05:45.250">populations. So some additional</p>
+      <p begin="01:05:45.375" end="01:05:46.666">problems of the platform are going</p>
+      <p begin="01:05:46.666" end="01:05:48.375">to amplify certain content.</p>
+      <p begin="01:05:49.166" end="01:05:49.958">Algorithms are going to shape</p>
+      <p begin="01:05:49.958" end="01:05:52.375">our visibility. So observed data</p>
+      <p begin="01:05:52.375" end="01:05:54.083">actually reflects the user behavior,</p>
+      <p begin="01:05:54.333" end="01:05:55.958">interact with our algorithmic</p>
+      <p begin="01:05:56.000" end="01:05:57.791">filtering, interact with network</p>
+      <p begin="01:05:57.791" end="01:05:59.750">effects. This is not a natural</p>
+      <p begin="01:05:59.750" end="01:06:00.833">sample of public opinion.</p>
+      <p begin="01:06:02.208" end="01:06:03.291">So another problem that I don't</p>
+      <p begin="01:06:03.291" end="01:06:04.708">mention here is that the algorithm</p>
+      <p begin="01:06:04.708" end="01:06:05.583">changes over time.</p>
+      <p begin="01:06:06.208" end="01:06:07.500">So we're trying to look at how user</p>
+      <p begin="01:06:07.500" end="01:06:09.875">populations are changing over time.</p>
+      <p begin="01:06:10.333" end="01:06:11.416">We might be seeing this</p>
+      <p begin="01:06:11.500" end="01:06:13.083">wide variation, but it's actually a</p>
+      <p begin="01:06:13.083" end="01:06:15.166">reflection of how social media</p>
+      <p begin="01:06:15.166" end="01:06:16.416">platforms algorithms are</p>
+      <p begin="01:06:16.416" end="01:06:17.833">changing during that period as</p>
+      <p begin="01:06:17.833" end="01:06:23.708">opposed to users changing. So</p>
+      <p begin="01:06:23.708" end="01:06:25.291">another problem is opt-in data.</p>
+      <p begin="01:06:26.541" end="01:06:27.833">So opt-in data involves</p>
+      <p begin="01:06:27.833" end="01:06:29.958">self-selection. Participants choose</p>
+      <p begin="01:06:29.958" end="01:06:32.000">to be observed. This introduces</p>
+      <p begin="01:06:32.166" end="01:06:34.625">selection bias, attrition bias,</p>
+      <p begin="01:06:34.916" end="01:06:38.125">strategic participation. So for</p>
+      <p begin="01:06:38.125" end="01:06:39.041">example, highly engaged</p>
+      <p begin="01:06:39.208" end="01:06:41.583">users post-more. Exteriors may be</p>
+      <p begin="01:06:41.583" end="01:06:43.541">over-represented. Marginalized</p>
+      <p begin="01:06:43.541" end="01:06:45.041">populations may opt-out.</p>
+      <p begin="01:06:45.958" end="01:06:46.916">Inference requires strong</p>
+      <p begin="01:06:46.916" end="01:06:47.500">assumptions,</p>
+      <p begin="01:06:47.916" end="01:06:49.958">ignoreability, stable participation,</p>
+      <p begin="01:06:50.416" end="01:06:52.333">and no observed confounders. So</p>
+      <p begin="01:06:52.333" end="01:06:53.416">often these assumptions are</p>
+      <p begin="01:06:53.416" end="01:06:54.375">difficult to defend.</p>
+      <p begin="01:07:00.583" end="01:07:02.750">So remote sensing appears objective,</p>
+      <p begin="01:07:03.000" end="01:07:04.750">but it has constraints. So something</p>
+      <p begin="01:07:04.750" end="01:07:05.916">like cloud coverage,</p>
+      <p begin="01:07:05.958" end="01:07:08.333">atmospheric information, sensor</p>
+      <p begin="01:07:08.333" end="01:07:10.750">resolution limits, revisit</p>
+      <p begin="01:07:10.750" end="01:07:12.625">intervals, and strategic camouflage.</p>
+      <p begin="01:07:14.041" end="01:07:16.166">So how might cloud coverage affect a</p>
+      <p begin="01:07:16.166" end="01:07:18.250">result? So let's say we</p>
+      <p begin="01:07:18.250" end="01:07:19.958">want to look at the spread of</p>
+      <p begin="01:07:19.958" end="01:07:22.916">political violence. Rebel groups or</p>
+      <p begin="01:07:22.916" end="01:07:24.458">the state might choose to go during</p>
+      <p begin="01:07:24.458" end="01:07:25.416">times of high cloud</p>
+      <p begin="01:07:25.416" end="01:07:26.833">coverage to be protected on</p>
+      <p begin="01:07:26.833" end="01:07:28.666">satellite imagery. And so we</p>
+      <p begin="01:07:28.666" end="01:07:29.916">wouldn't actually, we have seen some</p>
+      <p begin="01:07:29.916" end="01:07:31.708">sort of strategic interaction where</p>
+      <p begin="01:07:31.708" end="01:07:35.583">they're using weather variation to</p>
+      <p begin="01:07:35.583" end="01:07:37.875">actually alter their</p>
+      <p begin="01:07:37.875" end="01:07:39.333">political behaviors on it. And this</p>
+      <p begin="01:07:39.333" end="01:07:40.875">would lead to like a systematic bias</p>
+      <p begin="01:07:40.875" end="01:07:41.916">and a data collection for</p>
+      <p begin="01:07:41.916" end="01:07:45.375">a result for it. Aside from this</p>
+      <p begin="01:07:45.375" end="01:07:46.541">conflict example, this looks at</p>
+      <p begin="01:07:46.541" end="01:07:47.958">things like cloud-heavy regions</p>
+      <p begin="01:07:47.958" end="01:07:49.333">while systematically missing or</p>
+      <p begin="01:07:49.333" end="01:07:53.041">degraded imagery for it. And then</p>
+      <p begin="01:07:53.041" end="01:07:54.291">remote sensing, just remember,</p>
+      <p begin="01:07:54.416" end="01:07:56.458">some measurement is not in a direct</p>
+      <p begin="01:07:56.458" end="01:08:04.375">observation. So now let's shift to</p>
+      <p begin="01:08:04.375" end="01:08:06.458">labeling. Raw data often</p>
+      <p begin="01:08:06.458" end="01:08:08.833">require annotation. Labels may be</p>
+      <p begin="01:08:08.833" end="01:08:10.791">produced by expert coders, trained</p>
+      <p begin="01:08:10.791" end="01:08:11.708">research assistants,</p>
+      <p begin="01:08:12.041" end="01:08:13.416">crowdsourcing platforms, or</p>
+      <p begin="01:08:13.416" end="01:08:15.833">machine-assisted workflows. Laboring</p>
+      <p begin="01:08:15.833" end="01:08:17.125">introduces new uncertainty.</p>
+      <p begin="01:08:17.500" end="01:08:18.583">So we have things like category</p>
+      <p begin="01:08:18.583" end="01:08:20.875">ambiguity, instructional</p>
+      <p begin="01:08:20.875" end="01:08:23.416">ambiguity, code of fatigue,</p>
+      <p begin="01:08:23.791" end="01:08:26.416">incentive distortions. So even</p>
+      <p begin="01:08:26.416" end="01:08:28.208">perfectly collected raw data can</p>
+      <p begin="01:08:28.208" end="01:08:34.083">become distorted through labeling.</p>
+      <p begin="01:08:41.041" end="01:08:42.916">So intercoder reliability measures</p>
+      <p begin="01:08:42.916" end="01:08:44.875">agreement between coders. So some</p>
+      <p begin="01:08:44.875" end="01:08:46.000">common statistics are</p>
+      <p begin="01:08:46.000" end="01:08:48.375">Cohen's kappa or percent agreement.</p>
+      <p begin="01:08:49.416" end="01:08:50.541">But we want to think about</p>
+      <p begin="01:08:50.541" end="01:08:52.166">reliability just as our consensus</p>
+      <p begin="01:08:52.333" end="01:08:54.416">would say. But here's the key</p>
+      <p begin="01:08:54.416" end="01:08:56.583">suggestion. Here's the key</p>
+      <p begin="01:08:56.583" end="01:08:57.083">distinction.</p>
+      <p begin="01:08:57.875" end="01:08:58.958">Reliability does not equal</p>
+      <p begin="01:08:58.958" end="01:09:00.583">volatility. Coders can agree with</p>
+      <p begin="01:09:00.583" end="01:09:02.541">each other and still be wrong. High</p>
+      <p begin="01:09:02.541" end="01:09:04.000">agreement may indicate clear</p>
+      <p begin="01:09:04.000" end="01:09:05.583">categories or shared</p>
+      <p begin="01:09:05.583" end="01:09:07.333">misunderstanding. Reliability</p>
+      <p begin="01:09:07.333" end="01:09:08.625">concerns whether the label</p>
+      <p begin="01:09:08.625" end="01:09:09.916">corresponds to the</p>
+      <p begin="01:09:09.916" end="01:09:11.541">construct of interest. And</p>
+      <p begin="01:09:11.541" end="01:09:12.333">reliability is</p>
+      <p begin="01:09:12.333" end="01:09:13.708">necessary but not sufficient.</p>
+      <p begin="01:09:20.208" end="01:09:22.000">So validation must go beyond code</p>
+      <p begin="01:09:22.000" end="01:09:23.750">agreement. So some common</p>
+      <p begin="01:09:23.750" end="01:09:25.208">strategies are spot checks,</p>
+      <p begin="01:09:25.916" end="01:09:27.458">external validation benchmarks,</p>
+      <p begin="01:09:28.041" end="01:09:29.625">temporal consistency checks,</p>
+      <p begin="01:09:30.333" end="01:09:31.333">sensitivity analysis.</p>
+      <p begin="01:09:32.541" end="01:09:33.750">Spot checks detect gross</p>
+      <p begin="01:09:33.750" end="01:09:36.500">misclassification. External</p>
+      <p begin="01:09:36.500" end="01:09:37.916">benchmarks test</p>
+      <p begin="01:09:37.916" end="01:09:39.041">alignment with independent</p>
+      <p begin="01:09:39.208" end="01:09:41.250">measures. Temporal checks identify</p>
+      <p begin="01:09:41.250" end="01:09:43.291">sudden shifts or inconsistent with</p>
+      <p begin="01:09:43.291" end="01:09:45.041">figuring. And sensitivity</p>
+      <p begin="01:09:45.166" end="01:09:46.916">analysis tests for the conclusion</p>
+      <p begin="01:09:46.916" end="01:09:48.416">depending on fragile assumptions.</p>
+      <p begin="01:09:49.083" end="01:09:50.166">But no single validation</p>
+      <p begin="01:09:50.208" end="01:09:52.333">step is sufficient. Validation must</p>
+      <p begin="01:09:52.333" end="01:09:58.875">be layered. So over time, platforms</p>
+      <p begin="01:09:58.875" end="01:09:59.833">change their APIs.</p>
+      <p begin="01:10:00.208" end="01:10:01.500">You need coverage pattern shift,</p>
+      <p begin="01:10:02.083" end="01:10:03.958">user behaviors evolved, and category</p>
+      <p begin="01:10:03.958" end="01:10:05.708">definitions drift. This</p>
+      <p begin="01:10:05.750" end="01:10:07.500">creates conceptual drift and data</p>
+      <p begin="01:10:07.500" end="01:10:10.416">drift. So concept drift is the</p>
+      <p begin="01:10:10.416" end="01:10:11.333">meaning of the category</p>
+      <p begin="01:10:11.333" end="01:10:13.250">changes. Data drift is the</p>
+      <p begin="01:10:13.250" end="01:10:15.500">distinction of the data changes. And</p>
+      <p begin="01:10:15.500" end="01:10:17.250">then we have static validation as</p>
+      <p begin="01:10:17.250" end="01:10:19.666">inadequate. So if your data set</p>
+      <p begin="01:10:19.666" end="01:10:21.541">spans years, you might monitor</p>
+      <p begin="01:10:21.541" end="01:10:22.833">stability for this case.</p>
+      <p begin="01:10:28.708" end="01:10:29.625">So one thing to remember, the</p>
+      <p begin="01:10:29.625" end="01:10:31.333">documentation is not weakness. It's</p>
+      <p begin="01:10:31.333" end="01:10:32.375">a methodological clarity.</p>
+      <p begin="01:10:32.875" end="01:10:34.583">You should explicitly state known</p>
+      <p begin="01:10:34.583" end="01:10:36.666">biases, blind spots, assumptions</p>
+      <p begin="01:10:36.666" end="01:10:37.875">required for inference,</p>
+      <p begin="01:10:38.541" end="01:10:39.958">data generation constraints.</p>
+      <p begin="01:10:40.958" end="01:10:41.791">Transparenting is going to</p>
+      <p begin="01:10:41.791" end="01:10:42.791">strengthen your credibility.</p>
+      <p begin="01:10:43.291" end="01:10:44.958">Reviewers are more skeptical when</p>
+      <p begin="01:10:44.958" end="01:10:46.125">limitations are hidden.</p>
+      <p begin="01:10:50.708" end="01:10:52.291">So one thing is that data quality is</p>
+      <p begin="01:10:52.291" end="01:10:53.958">not a cleanup choice.</p>
+      <p begin="01:10:54.166" end="01:10:55.208">It's a design principle.</p>
+      <p begin="01:10:56.208" end="01:10:58.208">It should be anticipated collection,</p>
+      <p begin="01:10:58.666" end="01:10:59.875">monitored over time,</p>
+      <p begin="01:11:00.458" end="01:11:02.208">quantified where possible, and</p>
+      <p begin="01:11:02.208" end="01:11:03.500">reported alongside results.</p>
+      <p begin="01:11:04.333" end="01:11:05.750">Validation is part of methodology.</p>
+      <p begin="01:11:06.750" end="01:11:08.291">You need to justify your</p>
+      <p begin="01:11:08.291" end="01:11:08.875">identification</p>
+      <p begin="01:11:08.875" end="01:11:11.208">assumptions, and you must justify</p>
+      <p begin="01:11:11.500" end="01:11:17.250">measurement assumptions for it. So</p>
+      <p begin="01:11:17.250" end="01:11:18.791">for guiding principles for you, you</p>
+      <p begin="01:11:18.791" end="01:11:19.583">want to treat biases</p>
+      <p begin="01:11:19.958" end="01:11:22.458">as a structural. You want to</p>
+      <p begin="01:11:22.458" end="01:11:25.666">validate at multiple stages. You</p>
+      <p begin="01:11:25.666" end="01:11:27.708">want to separate reliability from</p>
+      <p begin="01:11:27.750" end="01:11:30.166">validity. You want to document</p>
+      <p begin="01:11:30.166" end="01:11:32.708">uncertainty explicitly. So these</p>
+      <p begin="01:11:32.708" end="01:11:33.416">principles are going to</p>
+      <p begin="01:11:33.416" end="01:11:34.625">apply to a variety of data</p>
+      <p begin="01:11:34.625" end="01:11:38.125">collection processes like API data,</p>
+      <p begin="01:11:38.666" end="01:11:41.291">LLM generated data, hand-coded data,</p>
+      <p begin="01:11:41.833" end="01:11:43.333">remote sensing data, survey data,</p>
+      <p begin="01:11:43.750" end="01:11:44.583">much of what we're</p>
+      <p begin="01:11:44.583" end="01:11:45.500">covering in the course.</p>
+      <p begin="01:11:46.291" end="01:11:47.375">But measurement is going</p>
+      <p begin="01:11:47.375" end="01:11:48.416">to precede your modeling.</p>
+      <p begin="01:11:51.625" end="01:11:53.000">So just a couple of things to keep</p>
+      <p begin="01:11:53.000" end="01:11:55.500">in mind for it with these three</p>
+      <p begin="01:11:55.500" end="01:11:56.833">questions. So which biases</p>
+      <p begin="01:11:57.041" end="01:11:58.500">are hardest to detect when you're</p>
+      <p begin="01:11:58.500" end="01:12:01.125">starting a research project? Often</p>
+      <p begin="01:12:01.125" end="01:12:02.541">the hardest bias is those</p>
+      <p begin="01:12:02.541" end="01:12:03.541">that are aligned with our</p>
+      <p begin="01:12:03.541" end="01:12:04.458">expectations. So when is validation</p>
+      <p begin="01:12:04.458" end="01:12:06.375">expectations. So when is validation</p>
+      <p begin="01:12:06.375" end="01:12:07.750">infeasible? So often the hardest,</p>
+      <p begin="01:12:07.750" end="01:12:09.208">when is validation infeasible? So</p>
+      <p begin="01:12:09.208" end="01:12:11.916">maybe when no ground truth exists.</p>
+      <p begin="01:12:13.458" end="01:12:15.916">And then how should uncertainty</p>
+      <p begin="01:12:16.250" end="01:12:18.291">be communicated? It shouldn't be</p>
+      <p begin="01:12:18.291" end="01:12:19.958">buried in our footnotes. It</p>
+      <p begin="01:12:19.958" end="01:12:22.458">shouldn't be implied. It should be</p>
+      <p begin="01:12:22.458" end="01:12:24.208">explicitly quantified and described</p>
+      <p begin="01:12:24.208" end="01:12:26.458">for it. So your analysis</p>
+      <p begin="01:12:26.458" end="01:12:28.041">is only as credible as your</p>
+      <p begin="01:12:28.041" end="01:12:29.791">measurement process. Large data sets</p>
+      <p begin="01:12:29.791" end="01:12:31.541">increase power. They do not</p>
+      <p begin="01:12:31.541" end="01:12:33.541">guarantee validity. Quality</p>
+      <p begin="01:12:33.541" end="01:12:35.541">is not optional. It's the foundation</p>
+      <p begin="01:12:35.541" end="01:12:37.583">of inference. And that's</p>
+      <p begin="01:12:37.583" end="01:12:38.708">it for today's lecture.</p>
+    </div>
+  </body>
+</tt>
