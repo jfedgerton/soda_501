@@ -156,6 +156,41 @@ print("\nReconstructed graph summary:")
 print("  Nodes:", G2.number_of_nodes())
 print("  Edges:", G2.number_of_edges())
 
+# -------------------------------------------------------------------------
+# Spaghetti-style network visualization
+# -------------------------------------------------------------------------
+# This is a classic "hairball" style plot:
+# - edges are thin and transparent
+# - nodes are colored by true community
+# - spring layout puts more connected nodes closer together
+
+plt.figure(figsize=(10, 10))
+
+# Layout for the graph
+pos = nx.spring_layout(G2, seed=123, k=0.15)
+
+# Draw faint edges first
+nx.draw_networkx_edges(
+    G2,
+    pos,
+    alpha=0.08,
+    width=0.4
+)
+
+# Draw nodes on top, colored by true community
+nx.draw_networkx_nodes(
+    G2,
+    pos,
+    node_color=true_labels,
+    node_size=18,
+    alpha=0.9
+)
+
+plt.title("Synthetic network spaghetti plot")
+plt.axis("off")
+plt.tight_layout()
+plt.show()
+
 # -----------------------------------------------------------------------------
 # Step 3: Convert the graph to a sparse adjacency matrix
 # -----------------------------------------------------------------------------
@@ -362,6 +397,13 @@ optimizer = torch.optim.Adam(list(lin1.parameters()) + list(lin2.parameters()), 
 # We do 30 epochs to keep the output manageable in class.
 epochs = 30
 
+# Store training history so we can visualize performance across epochs
+epoch_list = []
+loss_history = []
+train_acc_history = []
+val_acc_history = []
+test_acc_history = []
+
 for epoch in range(1, epochs + 1):
 
     # Forward pass
@@ -389,6 +431,49 @@ for epoch in range(1, epochs + 1):
 
     print("Epoch", epoch, "| loss:", float(loss.detach().cpu().numpy()),
           "| train_acc:", train_acc, "| val_acc:", val_acc, "| test_acc:", test_acc)
+    # Save values for plotting after training
+    epoch_list.append(epoch)
+    loss_history.append(float(loss.detach().cpu().numpy()))
+    train_acc_history.append(train_acc)
+    val_acc_history.append(val_acc)
+    test_acc_history.append(test_acc)
+
+
+# -----------------------------------------------------------------------------
+# Spaghetti-style training curves
+# -----------------------------------------------------------------------------
+# This shows how train / validation / test accuracy move across epochs.
+# We also plot loss separately so students can compare optimization vs accuracy.
+
+history_df = pd.DataFrame({
+    "epoch": epoch_list,
+    "loss": loss_history,
+    "train_acc": train_acc_history,
+    "val_acc": val_acc_history,
+    "test_acc": test_acc_history
+})
+
+# Accuracy spaghetti plot
+plt.figure()
+plt.plot(history_df["epoch"], history_df["train_acc"], label="Train accuracy")
+plt.plot(history_df["epoch"], history_df["val_acc"], label="Validation accuracy")
+plt.plot(history_df["epoch"], history_df["test_acc"], label="Test accuracy")
+plt.title("GCN accuracy across epochs")
+plt.xlabel("Epoch")
+plt.ylabel("Accuracy")
+plt.legend()
+plt.tight_layout()
+plt.show()
+
+# Loss plot
+plt.figure()
+plt.plot(history_df["epoch"], history_df["loss"], label="Training loss")
+plt.title("GCN training loss across epochs")
+plt.xlabel("Epoch")
+plt.ylabel("Cross-entropy loss")
+plt.legend()
+plt.tight_layout()
+plt.show()
 
 # -----------------------------------------------------------------------------
 # Part 7: Post-Training Diagnostics (Confusion Matrix + Comparison)
