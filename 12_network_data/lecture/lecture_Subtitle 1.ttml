@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tt xml:lang="en" xmlns="http://www.w3.org/ns/ttml" xmlns:ttm="http://www.w3.org/ns/ttml#metadata" xmlns:tts="http://www.w3.org/ns/ttml#styling" xmlns:ttp="http://www.w3.org/ns/ttml#parameter" xmlns:ittp="http://www.w3.org/ns/ttml/profile/imsc1#parameter" xmlns:itts="http://www.w3.org/ns/ttml/profile/imsc1#styling" ttp:profile="http://www.w3.org/ns/ttml/profile/imsc1/text" ttp:frameRate="24" ttp:timeBase="media">
+  <head>
+    <styling>
+      <style xml:id="s0" tts:color="#ffffff" tts:opacity="1" tts:fontSize="100%" tts:fontFamily="proportionalSansSerif" tts:fontWeight="bold" tts:textOutline="#ffffff 1px" tts:textAlign="center"/>
+    </styling>
+    <layout>
+      <region xml:id="r0" tts:origin="13.132% 74.884%" tts:extent="73.750% 10.278%" tts:displayAlign="center"/>
+    </layout>
+  </head>
+  <body>
+    <div xml:id="d0" region="r0" style="s0">
+      <p begin="01:00:04.541" end="01:00:05.666">Hi everyone, in today's lecture</p>
+      <p begin="01:00:05.666" end="01:00:06.916">we're going to talk about network</p>
+      <p begin="01:00:06.916" end="01:00:08.166">data and graph workflows.</p>
+      <p begin="01:00:08.833" end="01:00:10.541">The central idea is that many social</p>
+      <p begin="01:00:10.541" end="01:00:11.250">processes are</p>
+      <p begin="01:00:11.250" end="01:00:12.458">fundamentally relational.</p>
+      <p begin="01:00:13.208" end="01:00:15.916">If you only look at attributes of</p>
+      <p begin="01:00:15.916" end="01:00:18.291">individuals, units, states, people,</p>
+      <p begin="01:00:18.666" end="01:00:20.000">organizations, you</p>
+      <p begin="01:00:20.000" end="01:00:20.666">miss the structure</p>
+      <p begin="01:00:20.666" end="01:00:21.416">of the interaction.</p>
+      <p begin="01:00:21.875" end="01:00:23.500">So who connects to whom, who depends</p>
+      <p begin="01:00:23.500" end="01:00:25.750">on whom, how influence flows, how</p>
+      <p begin="01:00:25.750" end="01:00:26.833">conflict cascades,</p>
+      <p begin="01:00:27.250" end="01:00:28.500">and how cooperation emerges.</p>
+      <p begin="01:00:29.666" end="01:00:31.416">The network methods make relations</p>
+      <p begin="01:00:31.416" end="01:00:34.333">explicit, but you also force you to</p>
+      <p begin="01:00:34.333" end="01:00:35.500">make choices that</p>
+      <p begin="01:00:35.500" end="01:00:36.791">are easy to be overlooked.</p>
+      <p begin="01:00:37.458" end="01:00:38.958">What counts as a node, what counts</p>
+      <p begin="01:00:38.958" end="01:00:41.375">as an edge, and how edges are</p>
+      <p begin="01:00:41.375" end="01:00:42.833">directed or weighted, and</p>
+      <p begin="01:00:42.833" end="01:00:44.375">what the unit of analysis is.</p>
+      <p begin="01:00:45.291" end="01:00:46.333">So today I'm going to start with</p>
+      <p begin="01:00:46.333" end="01:00:48.250">representation, how we build</p>
+      <p begin="01:00:48.250" end="01:00:50.041">networks from tables, and then</p>
+      <p begin="01:00:50.041" end="01:00:51.458">I'll move through descriptive</p>
+      <p begin="01:00:51.458" end="01:00:53.000">measures, statistical network</p>
+      <p begin="01:00:53.000" end="01:00:54.166">models, diffusion</p>
+      <p begin="01:00:54.166" end="01:00:55.708">models, and finally</p>
+      <p begin="01:00:55.708" end="01:00:56.750">graphical networks.</p>
+      <p begin="01:00:58.125" end="01:01:00.083">As always, the goal is to connect</p>
+      <p begin="01:01:00.083" end="01:01:01.250">tools to measurement and</p>
+      <p begin="01:01:01.250" end="01:01:02.666">inference and not memorize</p>
+      <p begin="01:01:02.666" end="01:01:04.375">the software for it.</p>
+      <p begin="01:01:07.416" end="01:01:08.958">So why do networks matter?</p>
+      <p begin="01:01:09.583" end="01:01:10.791">Many social processes are</p>
+      <p begin="01:01:10.791" end="01:01:12.041">relational, conflict and</p>
+      <p begin="01:01:12.041" end="01:01:12.583">cooperation,</p>
+      <p begin="01:01:13.333" end="01:01:15.166">information and fusion, influence</p>
+      <p begin="01:01:15.166" end="01:01:17.208">and dependency, collective action.</p>
+      <p begin="01:01:18.083" end="01:01:19.541">If you care about any of those,</p>
+      <p begin="01:01:19.541" end="01:01:21.166">relationships are not in the ways</p>
+      <p begin="01:01:21.166" end="01:01:22.541">they are mechanism.</p>
+      <p begin="01:01:23.166" end="01:01:24.583">So for example, in international</p>
+      <p begin="01:01:24.583" end="01:01:25.916">relations, the effective</p>
+      <p begin="01:01:25.916" end="01:01:27.541">capabilities often depend on</p>
+      <p begin="01:01:27.583" end="01:01:29.250">alliance, trade ties, and</p>
+      <p begin="01:01:29.250" end="01:01:30.416">structural institutions.</p>
+      <p begin="01:01:31.333" end="01:01:32.500">And political communication</p>
+      <p begin="01:01:32.500" end="01:01:34.000">influences depends on who is</p>
+      <p begin="01:01:34.000" end="01:01:36.083">connected to whom and who amplifies</p>
+      <p begin="01:01:36.083" end="01:01:36.500">what.</p>
+      <p begin="01:01:37.500" end="01:01:40.416">And organization outcomes depend on</p>
+      <p begin="01:01:40.416" end="01:01:41.458">reporting lines and</p>
+      <p begin="01:01:41.458" end="01:01:42.500">informal networks.</p>
+      <p begin="01:01:43.500" end="01:01:44.833">So the comment on the slide is that</p>
+      <p begin="01:01:44.833" end="01:01:47.000">networks make relations explicit.</p>
+      <p begin="01:01:47.500" end="01:01:47.750">They turn</p>
+      <p begin="01:01:47.750" end="01:01:50.000">relationships into analyzable data.</p>
+      <p begin="01:01:59.666" end="01:02:01.416">So network data consists of nodes,</p>
+      <p begin="01:02:01.625" end="01:02:03.000">edges, and attributes are both.</p>
+      <p begin="01:02:03.708" end="01:02:04.875">Nodes can be actors, units,</p>
+      <p begin="01:02:05.083" end="01:02:06.916">organizations, states, legislators,</p>
+      <p begin="01:02:07.208" end="01:02:07.916">whatever you define.</p>
+      <p begin="01:02:09.000" end="01:02:09.875">Edges are relations.</p>
+      <p begin="01:02:10.166" end="01:02:11.208">They're things like interactions,</p>
+      <p begin="01:02:11.500" end="01:02:13.541">ties, flows, co-membership,</p>
+      <p begin="01:02:13.541" end="01:02:15.250">friendship, co-sponsorship,</p>
+      <p begin="01:02:15.250" end="01:02:16.750">communication, conflict events.</p>
+      <p begin="01:02:18.291" end="01:02:19.000">Attributes can live</p>
+      <p begin="01:02:19.000" end="01:02:20.666">on node-like ideology.</p>
+      <p begin="01:02:21.291" end="01:02:21.666">They can have</p>
+      <p begin="01:02:21.666" end="01:02:23.541">things like GDP or party.</p>
+      <p begin="01:02:24.583" end="01:02:25.916">And edges can have things like tie</p>
+      <p begin="01:02:25.916" end="01:02:27.416">strength, frequency, or type.</p>
+      <p begin="01:02:28.500" end="01:02:30.125">But the key line is the unit of</p>
+      <p begin="01:02:30.125" end="01:02:31.458">analysis is often a</p>
+      <p begin="01:02:31.458" end="01:02:32.416">tie, not the node.</p>
+      <p begin="01:02:33.500" end="01:02:35.041">So that's a mindset shift.</p>
+      <p begin="01:02:35.625" end="01:02:37.875">And in typical regression, the unit</p>
+      <p begin="01:02:37.875" end="01:02:39.916">is the individual or the same year.</p>
+      <p begin="01:02:40.375" end="01:02:42.208">In network analysis, the basic</p>
+      <p begin="01:02:42.208" end="01:02:44.541">operation can be the dyad, the</p>
+      <p begin="01:02:44.541" end="01:02:45.791">relationship between i and</p>
+      <p begin="01:02:45.791" end="01:02:47.000">j, and those dyads</p>
+      <p begin="01:02:47.000" end="01:02:47.708">are not independent.</p>
+      <p begin="01:02:49.083" end="01:02:50.541">And independence is the major reason</p>
+      <p begin="01:02:50.541" end="01:02:51.125">networks have</p>
+      <p begin="01:02:51.125" end="01:02:52.666">different models exist.</p>
+      <p begin="01:02:57.833" end="01:02:58.250">So network</p>
+      <p begin="01:02:58.250" end="01:02:59.708">construction requires a choice.</p>
+      <p begin="01:03:00.333" end="01:03:01.250">What counts as a node?</p>
+      <p begin="01:03:01.666" end="01:03:02.625">What counts as a tie?</p>
+      <p begin="01:03:03.750" end="01:03:04.208">Is the network</p>
+      <p begin="01:03:04.208" end="01:03:05.500">directed or undirected?</p>
+      <p begin="01:03:05.875" end="01:03:06.958">Are edges weighted or binary?</p>
+      <p begin="01:03:07.958" end="01:03:09.541">These are not cosmetic decisions.</p>
+      <p begin="01:03:10.250" end="01:03:10.958">Representation,</p>
+      <p begin="01:03:10.958" end="01:03:12.208">decision, shape, and friends.</p>
+      <p begin="01:03:13.000" end="01:03:14.875">So as a quick example, if you define</p>
+      <p begin="01:03:14.875" end="01:03:16.791">a tie as any interaction, your</p>
+      <p begin="01:03:16.791" end="01:03:17.750">network will be dense.</p>
+      <p begin="01:03:18.541" end="01:03:20.666">If you define a tie as at least five</p>
+      <p begin="01:03:20.666" end="01:03:21.625">interactions, it</p>
+      <p begin="01:03:21.625" end="01:03:22.500">might become sparse.</p>
+      <p begin="01:03:23.500" end="01:03:25.500">If you treat ties as directed, you</p>
+      <p begin="01:03:25.500" end="01:03:26.375">can study who</p>
+      <p begin="01:03:26.375" end="01:03:27.625">initiates and who receives.</p>
+      <p begin="01:03:28.625" end="01:03:30.708">If you treat ties as undirected, you</p>
+      <p begin="01:03:30.708" end="01:03:32.750">collapse directionally and you lose</p>
+      <p begin="01:03:32.750" end="01:03:33.916">certain mechanisms.</p>
+      <p begin="01:03:35.000" end="01:03:36.416">So of course, GIL and network</p>
+      <p begin="01:03:36.416" end="01:03:38.291">research is being explicit about</p>
+      <p begin="01:03:38.291" end="01:03:39.458">construction rules and</p>
+      <p begin="01:03:39.458" end="01:03:40.416">checking how sensitive</p>
+      <p begin="01:03:40.416" end="01:03:41.666">results are to those rules.</p>
+      <p begin="01:03:47.000" end="01:03:48.916">So this slide shows the basic idea.</p>
+      <p begin="01:03:48.916" end="01:03:50.916">We often start with an edge list.</p>
+      <p begin="01:03:51.291" end="01:03:53.125">We have rows or ties with a sender</p>
+      <p begin="01:03:53.125" end="01:03:54.875">and a receiver, and then we</p>
+      <p begin="01:03:54.875" end="01:03:56.333">construct a graph object.</p>
+      <p begin="01:03:57.666" end="01:03:59.125">So the technical details differ</p>
+      <p begin="01:03:59.125" end="01:04:00.166">across tools, but</p>
+      <p begin="01:04:00.166" end="01:04:01.166">the logic is constant.</p>
+      <p begin="01:04:01.958" end="01:04:03.125">We're going to identify the source</p>
+      <p begin="01:04:03.125" end="01:04:05.083">column and target columns.</p>
+      <p begin="01:04:05.083" end="01:04:06.041">Is there a source and a target?</p>
+      <p begin="01:04:07.250" end="01:04:09.333">We're going to make weights or</p>
+      <p begin="01:04:09.333" end="01:04:11.541">attributes depending on it.</p>
+      <p begin="01:04:11.541" end="01:04:12.583">So we're creating a network here.</p>
+      <p begin="01:04:13.125" end="01:04:14.666">It's the same for</p>
+      <p begin="01:04:14.666" end="01:04:16.500">our iGraph syntax here.</p>
+      <p begin="01:04:17.666" end="01:04:19.166">In your pipeline, this step should</p>
+      <p begin="01:04:19.166" end="01:04:20.916">be documented and auditable.</p>
+      <p begin="01:04:21.500" end="01:04:23.291">What rows went in, what filters were</p>
+      <p begin="01:04:23.291" end="01:04:24.250">applied, and what</p>
+      <p begin="01:04:24.250" end="01:04:26.000">definition of a tie was used.</p>
+      <p begin="01:04:29.541" end="01:04:31.125">So the centrality captures different</p>
+      <p begin="01:04:31.125" end="01:04:32.291">notions of importance.</p>
+      <p begin="01:04:32.500" end="01:04:33.875">We have to grade between this</p>
+      <p begin="01:04:33.875" end="01:04:35.291">eigenvector or page rank.</p>
+      <p begin="01:04:36.333" end="01:04:37.833">The key warning in this slide is</p>
+      <p begin="01:04:37.833" end="01:04:39.083">that no single measure is</p>
+      <p begin="01:04:39.083" end="01:04:40.041">universally correct.</p>
+      <p begin="01:04:41.000" end="01:04:42.625">So degrees about the number of ties</p>
+      <p begin="01:04:42.625" end="01:04:44.375">or the popularity or activity</p>
+      <p begin="01:04:44.375" end="01:04:45.458">depending on direction.</p>
+      <p begin="01:04:46.458" end="01:04:48.208">Between this is about brokerage, so</p>
+      <p begin="01:04:48.208" end="01:04:50.125">being on pass between others.</p>
+      <p begin="01:04:51.500" end="01:04:52.791">Eigenvector and page rank are about</p>
+      <p begin="01:04:52.791" end="01:04:54.458">being connected to others who are</p>
+      <p begin="01:04:54.458" end="01:04:56.166">themselves connected,</p>
+      <p begin="01:04:56.583" end="01:04:58.208">so influenced by association.</p>
+      <p begin="01:05:00.416" end="01:05:00.875">Centrality is not</p>
+      <p begin="01:05:00.875" end="01:05:02.958">important in the abstract.</p>
+      <p begin="01:05:03.500" end="01:05:04.625">Importance is relative to a</p>
+      <p begin="01:05:04.625" end="01:05:05.541">particular mechanism.</p>
+      <p begin="01:05:06.708" end="01:05:09.041">So a good habit is to say what</p>
+      <p begin="01:05:09.041" end="01:05:11.250">mechanism would the centrality</p>
+      <p begin="01:05:11.250" end="01:05:12.458">measure be the right one?</p>
+      <p begin="01:05:13.000" end="01:05:14.500">If you can't answer that, then the</p>
+      <p begin="01:05:14.500" end="01:05:15.333">centrality result</p>
+      <p begin="01:05:15.333" end="01:05:16.375">is hard to interpret.</p>
+      <p begin="01:05:23.000" end="01:05:24.875">So communities identify clusters or</p>
+      <p begin="01:05:24.875" end="01:05:27.375">dense ties, functional groupings or</p>
+      <p begin="01:05:27.375" end="01:05:28.041">latent structure.</p>
+      <p begin="01:05:28.958" end="01:05:30.250">But the key point here is that</p>
+      <p begin="01:05:30.250" end="01:05:31.291">algorithms impose</p>
+      <p begin="01:05:31.291" end="01:05:32.583">assumptions about structure.</p>
+      <p begin="01:05:33.500" end="01:05:34.916">So community detection is not</p>
+      <p begin="01:05:34.916" end="01:05:37.625">finding the true communities, and</p>
+      <p begin="01:05:37.625" end="01:05:38.625">that partitioning the</p>
+      <p begin="01:05:38.625" end="01:05:40.541">graph is about partitioning the</p>
+      <p begin="01:05:40.541" end="01:05:42.125">graph according to an objective</p>
+      <p begin="01:05:42.125" end="01:05:44.208">function, something like modularity,</p>
+      <p begin="01:05:45.416" end="01:05:47.000">or according to a model assumption.</p>
+      <p begin="01:05:48.291" end="01:05:50.000">So different algorithms can yield</p>
+      <p begin="01:05:50.000" end="01:05:51.083">different partitions.</p>
+      <p begin="01:05:51.708" end="01:05:53.375">Even the same algorithm can yield</p>
+      <p begin="01:05:53.375" end="01:05:55.041">different partitions depending on</p>
+      <p begin="01:05:55.041" end="01:05:56.000">the resolution parameters.</p>
+      <p begin="01:05:57.166" end="01:05:58.500">So community detection is a</p>
+      <p begin="01:05:58.500" end="01:06:00.666">descriptive tool and is sometimes a</p>
+      <p begin="01:06:00.666" end="01:06:02.583">modeling step, but it requires</p>
+      <p begin="01:06:02.666" end="01:06:04.958">interpretation sensitivity checks.</p>
+      <p begin="01:06:05.791" end="01:06:07.291">In a data pipeline, communities are</p>
+      <p begin="01:06:07.291" end="01:06:09.166">outputs that are often validated,</p>
+      <p begin="01:06:09.500" end="01:06:10.708">not facts that exist</p>
+      <p begin="01:06:10.750" end="01:06:11.750">independent of a method.</p>
+      <p begin="01:06:17.000" end="01:06:18.041">So now we're going to move from</p>
+      <p begin="01:06:18.041" end="01:06:19.500">descriptive measures to</p>
+      <p begin="01:06:19.500" end="01:06:20.833">statistical network models.</p>
+      <p begin="01:06:21.666" end="01:06:22.916">Decysical network models treat</p>
+      <p begin="01:06:22.916" end="01:06:24.041">networks as outcomes.</p>
+      <p begin="01:06:24.958" end="01:06:26.708">Ties of random variables, structures</p>
+      <p begin="01:06:26.708" end="01:06:28.500">explained not assumed, and</p>
+      <p begin="01:06:28.500" end="01:06:29.541">dependences explicit.</p>
+      <p begin="01:06:30.625" end="01:06:31.875">This is where network analysis</p>
+      <p begin="01:06:31.875" end="01:06:33.000">diverges from applied</p>
+      <p begin="01:06:33.000" end="01:06:34.041">regression of dyads.</p>
+      <p begin="01:06:35.333" end="01:06:36.875">Diatic outcomes are dependent</p>
+      <p begin="01:06:36.875" end="01:06:39.416">because a node appears in many dyads</p>
+      <p begin="01:06:39.416" end="01:06:40.708">and because ties are</p>
+      <p begin="01:06:40.708" end="01:06:41.791">going to cluster due to</p>
+      <p begin="01:06:41.791" end="01:06:43.875">readgressifrosty, transitivity,</p>
+      <p begin="01:06:43.875" end="01:06:45.208">popularity, or latent group</p>
+      <p begin="01:06:45.208" end="01:06:45.708">structure.</p>
+      <p begin="01:06:47.041" end="01:06:48.791">Statistical models try to model</p>
+      <p begin="01:06:48.791" end="01:06:49.666">these dependencies</p>
+      <p begin="01:06:49.666" end="01:06:50.916">rather than ignore them.</p>
+      <p begin="01:06:51.625" end="01:06:52.833">So think of this as the difference</p>
+      <p begin="01:06:52.833" end="01:06:55.041">between summarizing a network and</p>
+      <p begin="01:06:55.041" end="01:06:56.000">explaining why it</p>
+      <p begin="01:06:56.041" end="01:06:58.000">looks the way that it does.</p>
+      <p begin="01:07:04.416" end="01:07:07.333">So ERGMs, orgums, exponential random</p>
+      <p begin="01:07:07.333" end="01:07:09.500">graph models, these are</p>
+      <p begin="01:07:09.500" end="01:07:10.833">a framework for modeling</p>
+      <p begin="01:07:10.916" end="01:07:12.666">local dependence, how small</p>
+      <p begin="01:07:12.666" end="01:07:13.541">configurations</p>
+      <p begin="01:07:13.541" end="01:07:14.833">generate global structure.</p>
+      <p begin="01:07:15.625" end="01:07:18.125">So the pseudocode here expresses the</p>
+      <p begin="01:07:18.125" end="01:07:19.000">conceptual logic.</p>
+      <p begin="01:07:19.666" end="01:07:20.666">You're going to define a network</p>
+      <p begin="01:07:20.666" end="01:07:22.166">statistic, things like edges,</p>
+      <p begin="01:07:22.416" end="01:07:23.541">reciprocity, or triangles,</p>
+      <p begin="01:07:24.458" end="01:07:25.458">and so on, and then you're going to</p>
+      <p begin="01:07:25.458" end="01:07:26.416">define a probability</p>
+      <p begin="01:07:26.416" end="01:07:28.041">distribution over networks</p>
+      <p begin="01:07:28.041" end="01:07:29.416">that favor networks with</p>
+      <p begin="01:07:29.416" end="01:07:30.333">certain characteristics.</p>
+      <p begin="01:07:31.583" end="01:07:33.500">So the algorithmic flavor often</p>
+      <p begin="01:07:33.500" end="01:07:35.041">involves proposing alternative</p>
+      <p begin="01:07:35.041" end="01:07:36.250">networks and accepting</p>
+      <p begin="01:07:36.291" end="01:07:38.333">them with probability related to how</p>
+      <p begin="01:07:38.333" end="01:07:39.125">the network of the</p>
+      <p begin="01:07:39.125" end="01:07:39.958">statistics change.</p>
+      <p begin="01:07:40.791" end="01:07:42.000">This is why ERGMs can be</p>
+      <p begin="01:07:42.000" end="01:07:43.375">computationally challenging.</p>
+      <p begin="01:07:43.666" end="01:07:44.208">The space of</p>
+      <p begin="01:07:44.208" end="01:07:45.458">possible networks is huge.</p>
+      <p begin="01:07:46.583" end="01:07:48.583">So the interpretation lesson is,</p>
+      <p begin="01:07:48.958" end="01:07:50.583">ERGMs explain why certain local</p>
+      <p begin="01:07:50.583" end="01:07:51.833">configurations appear.</p>
+      <p begin="01:07:52.916" end="01:07:54.041">They're good when your theory is</p>
+      <p begin="01:07:54.041" end="01:07:56.125">about structural tendencies, things</p>
+      <p begin="01:07:56.125" end="01:07:57.666">like reciprocity, clustering,</p>
+      <p begin="01:07:57.958" end="01:08:00.333">try to closure, or homophily, and</p>
+      <p begin="01:08:00.333" end="01:08:01.625">you want parameters that correspond</p>
+      <p begin="01:08:01.625" end="01:08:02.583">to those tendencies.</p>
+      <p begin="01:08:03.500" end="01:08:04.875">But they're sensitive to</p>
+      <p begin="01:08:04.875" end="01:08:06.875">specification, and they can be hard</p>
+      <p begin="01:08:06.875" end="01:08:08.375">to fit on very large data</p>
+      <p begin="01:08:08.375" end="01:08:08.666">sets.</p>
+      <p begin="01:08:09.333" end="01:08:10.833">So the question is always, does the</p>
+      <p begin="01:08:10.833" end="01:08:12.250">model match the theoretical</p>
+      <p begin="01:08:12.250" end="01:08:13.750">mechanism, and is it</p>
+      <p begin="01:08:13.750" end="01:08:14.833">feasible given the data?</p>
+      <p begin="01:08:20.458" end="01:08:21.833">Meaning models or latent structure</p>
+      <p begin="01:08:21.833" end="01:08:24.875">models, aim also known as additive</p>
+      <p begin="01:08:24.875" end="01:08:25.541">and multiplicative</p>
+      <p begin="01:08:25.541" end="01:08:27.791">effects, are another major family.</p>
+      <p begin="01:08:29.083" end="01:08:30.375">There's pseudocode here on this</p>
+      <p begin="01:08:30.375" end="01:08:31.833">slide to capture the key idea.</p>
+      <p begin="01:08:32.500" end="01:08:33.625">You're going to model a dyadic</p>
+      <p begin="01:08:33.625" end="01:08:35.750">outcome as a function of covariance,</p>
+      <p begin="01:08:35.750" end="01:08:36.666">plus sender effects,</p>
+      <p begin="01:08:36.916" end="01:08:38.500">receiver effects, and low-range</p>
+      <p begin="01:08:38.500" end="01:08:40.125">latent term that</p>
+      <p begin="01:08:40.125" end="01:08:41.500">captures unobserved structure.</p>
+      <p begin="01:08:42.333" end="01:08:43.666">The intuition is that latent</p>
+      <p begin="01:08:43.666" end="01:08:44.750">positions summarize</p>
+      <p begin="01:08:44.750" end="01:08:45.875">unobserved dependence.</p>
+      <p begin="01:08:47.125" end="01:08:48.250">Professors can be positioned in a</p>
+      <p begin="01:08:48.250" end="01:08:50.000">latent space, and the ties are more</p>
+      <p begin="01:08:50.000" end="01:08:51.708">likely when latent</p>
+      <p begin="01:08:51.750" end="01:08:53.250">positions align in certain ways.</p>
+      <p begin="01:08:54.375" end="01:08:55.750">Aiming models often scale better</p>
+      <p begin="01:08:55.750" end="01:08:57.791">than ERGMs and align more naturally</p>
+      <p begin="01:08:57.791" end="01:08:59.000">with regression intuition.</p>
+      <p begin="01:08:59.833" end="01:09:01.208">You still have covariance and</p>
+      <p begin="01:09:01.208" end="01:09:02.916">effects, but you also have a</p>
+      <p begin="01:09:02.916" end="01:09:04.416">structured residual component.</p>
+      <p begin="01:09:05.500" end="01:09:07.541">So in applied terms, AME is useful</p>
+      <p begin="01:09:07.541" end="01:09:08.583">when you suspect there is</p>
+      <p begin="01:09:08.583" end="01:09:10.125">unobserved structure, like</p>
+      <p begin="01:09:10.125" end="01:09:13.291">blocks, latent affinity, or hidden</p>
+      <p begin="01:09:13.291" end="01:09:14.625">confounding that generates</p>
+      <p begin="01:09:14.625" end="01:09:15.916">dependence across ions.</p>
+      <p begin="01:09:21.958" end="01:09:23.291">So a diffusion model studies how</p>
+      <p begin="01:09:23.291" end="01:09:24.958">behavior spreads, how events</p>
+      <p begin="01:09:24.958" end="01:09:26.583">cascade, and how influence</p>
+      <p begin="01:09:26.791" end="01:09:27.291">propagates.</p>
+      <p begin="01:09:28.083" end="01:09:29.583">The pseudocode here is in event</p>
+      <p begin="01:09:29.583" end="01:09:31.000">history style and tuition.</p>
+      <p begin="01:09:31.875" end="01:09:34.000">For each time, period, and actor,</p>
+      <p begin="01:09:34.458" end="01:09:36.000">you want to compute exposure based</p>
+      <p begin="01:09:36.000" end="01:09:36.708">on the neighbor's</p>
+      <p begin="01:09:36.708" end="01:09:38.625">past events, convert that exposure</p>
+      <p begin="01:09:38.625" end="01:09:41.041">into a hazard, and then event occur</p>
+      <p begin="01:09:41.041" end="01:09:41.791">probabilistically.</p>
+      <p begin="01:09:43.083" end="01:09:44.583">The key contribution to diffusion</p>
+      <p begin="01:09:44.583" end="01:09:47.250">models is that they make time and</p>
+      <p begin="01:09:47.250" end="01:09:48.250">exposure explicit.</p>
+      <p begin="01:09:49.333" end="01:09:51.583">They guess, given the network and</p>
+      <p begin="01:09:51.583" end="01:09:55.416">given what neighbors did previously,</p>
+      <p begin="01:09:55.875" end="01:09:56.875">does exposure increase</p>
+      <p begin="01:09:56.875" end="01:09:57.666">the probability of</p>
+      <p begin="01:09:57.666" end="01:09:58.875">adoption or action?</p>
+      <p begin="01:10:01.666" end="01:10:03.041">In social sciences, it matters</p>
+      <p begin="01:10:03.041" end="01:10:04.041">because diffusion is</p>
+      <p begin="01:10:04.041" end="01:10:06.333">often a claim about mechanism.</p>
+      <p begin="01:10:07.833" end="01:10:09.291">And without modeling exposure and</p>
+      <p begin="01:10:09.291" end="01:10:11.416">time explicitly, diffusion claims</p>
+      <p begin="01:10:11.416" end="01:10:13.333">can become descriptive, so</p>
+      <p begin="01:10:13.333" end="01:10:14.125">things spread.</p>
+      <p begin="01:10:14.958" end="01:10:16.166">Diffusion models force you to</p>
+      <p begin="01:10:16.166" end="01:10:17.875">specify what spread means.</p>
+      <p begin="01:10:18.541" end="01:10:19.666">And importantly, diffusion models</p>
+      <p begin="01:10:19.666" end="01:10:21.500">are often sensitive to how you</p>
+      <p begin="01:10:21.500" end="01:10:23.291">define exposure, what</p>
+      <p begin="01:10:23.291" end="01:10:24.791">counts as a neighbor, what time</p>
+      <p begin="01:10:24.791" end="01:10:26.333">window matters, whether influence</p>
+      <p begin="01:10:26.333" end="01:10:27.750">decays, and whether ties</p>
+      <p begin="01:10:27.750" end="01:10:28.166">are weighted.</p>
+      <p begin="01:10:29.416" end="01:10:30.625">So again, representation and</p>
+      <p begin="01:10:30.625" end="01:10:32.000">measurement choices are central.</p>
+      <p begin="01:10:38.125" end="01:10:40.083">So GNNs or graph-driven networks are</p>
+      <p begin="01:10:40.083" end="01:10:41.000">a different paradigm.</p>
+      <p begin="01:10:41.708" end="01:10:42.166">They learn</p>
+      <p begin="01:10:42.166" end="01:10:44.041">representation from graph structure.</p>
+      <p begin="01:10:44.708" end="01:10:46.166">They combine node features and</p>
+      <p begin="01:10:46.166" end="01:10:47.625">topology and enable</p>
+      <p begin="01:10:47.625" end="01:10:48.791">prediction on networks.</p>
+      <p begin="01:10:49.750" end="01:10:51.375">The pseudocode here shows the</p>
+      <p begin="01:10:51.375" end="01:10:52.291">message, so we're</p>
+      <p begin="01:10:52.291" end="01:10:53.291">going to pass an intuition.</p>
+      <p begin="01:10:53.916" end="01:10:54.125">We're going to</p>
+      <p begin="01:10:54.125" end="01:10:55.791">initialize node representations.</p>
+      <p begin="01:10:57.125" end="01:10:58.958">Then for multiple layers, we're</p>
+      <p begin="01:10:58.958" end="01:11:00.375">going to aggregate measures from</p>
+      <p begin="01:11:00.375" end="01:11:01.458">neighbors and update</p>
+      <p begin="01:11:01.458" end="01:11:02.500">each node's representation.</p>
+      <p begin="01:11:03.625" end="01:11:04.875">At the end, we're going to use the</p>
+      <p begin="01:11:04.875" end="01:11:06.291">learn representation for</p>
+      <p begin="01:11:06.291" end="01:11:07.500">prediction, things like</p>
+      <p begin="01:11:07.500" end="01:11:08.916">node classification, link</p>
+      <p begin="01:11:08.916" end="01:11:11.000">prediction, or graph-level tasks.</p>
+      <p begin="01:11:12.083" end="01:11:13.958">The key trade-offs is on this slide.</p>
+      <p begin="01:11:14.541" end="01:11:14.958">They trade</p>
+      <p begin="01:11:14.958" end="01:11:16.500">interpretability for flexibility.</p>
+      <p begin="01:11:17.625" end="01:11:18.708">So this is why it's useful to</p>
+      <p begin="01:11:18.708" end="01:11:20.375">connect graph neural networks to the</p>
+      <p begin="01:11:20.375" end="01:11:21.416">broader core themes.</p>
+      <p begin="01:11:22.708" end="01:11:25.000">GNNs can be powerful predictors, but</p>
+      <p begin="01:11:25.000" end="01:11:26.666">they can also become black boxes.</p>
+      <p begin="01:11:27.250" end="01:11:28.875">If your goal is explanation or</p>
+      <p begin="01:11:28.875" end="01:11:31.958">causal or theoretical, GNNs often</p>
+      <p begin="01:11:31.958" end="01:11:32.791">require additional</p>
+      <p begin="01:11:32.791" end="01:11:33.708">work to interpret.</p>
+      <p begin="01:11:34.541" end="01:11:36.291">The choice between GNNs and</p>
+      <p begin="01:11:36.291" end="01:11:37.791">statistical network models is not</p>
+      <p begin="01:11:37.791" end="01:11:38.500">about performance.</p>
+      <p begin="01:11:39.083" end="01:11:40.125">It's about research goals,</p>
+      <p begin="01:11:40.750" end="01:11:41.750">prediction versus explanation.</p>
+      <p begin="01:11:47.250" end="01:11:48.958">So this slide is a summary that's</p>
+      <p begin="01:11:48.958" end="01:11:50.000">worth emphasizing verbally.</p>
+      <p begin="01:11:50.875" end="01:11:52.541">Ergums explain local structure,</p>
+      <p begin="01:11:52.875" end="01:11:53.416">interpretable</p>
+      <p begin="01:11:53.416" end="01:11:55.500">parameters, and scale poorly.</p>
+      <p begin="01:11:56.750" end="01:11:58.416">AMEs explain latent dependence.</p>
+      <p begin="01:11:58.708" end="01:12:00.416">They're scalable, and they have</p>
+      <p begin="01:12:00.416" end="01:12:01.500">interpretable geometry.</p>
+      <p begin="01:12:02.833" end="01:12:03.500">Diffusion models</p>
+      <p begin="01:12:03.500" end="01:12:05.583">explain temporal contagion.</p>
+      <p begin="01:12:06.083" end="01:12:07.958">Often these align with causal</p>
+      <p begin="01:12:07.958" end="01:12:09.541">identification, and they require</p>
+      <p begin="01:12:09.541" end="01:12:11.125">time and careful exposure</p>
+      <p begin="01:12:11.166" end="01:12:11.750">definitions.</p>
+      <p begin="01:12:12.583" end="01:12:14.208">Then graph neural networks, they</p>
+      <p begin="01:12:14.208" end="01:12:15.375">optimize prediction.</p>
+      <p begin="01:12:15.833" end="01:12:17.333">They have limited interpretability.</p>
+      <p begin="01:12:18.000" end="01:12:19.000">They're strong when you have rich</p>
+      <p begin="01:12:19.000" end="01:12:20.333">data and prediction goals.</p>
+      <p begin="01:12:21.708" end="01:12:23.416">So this is a decision framework.</p>
+      <p begin="01:12:23.875" end="01:12:25.250">You want to match your model family</p>
+      <p begin="01:12:25.250" end="01:12:26.208">as to what you learned.</p>
+      <p begin="01:12:27.458" end="01:12:29.208">If your paper's core claim is that</p>
+      <p begin="01:12:29.208" end="01:12:31.041">reproducibility drives cooperation,</p>
+      <p begin="01:12:31.583" end="01:12:32.791">an ergon might be natural.</p>
+      <p begin="01:12:33.583" end="01:12:35.250">If your claim is unobserved</p>
+      <p begin="01:12:35.250" end="01:12:37.416">block-structured conflict ties, an</p>
+      <p begin="01:12:37.416" end="01:12:38.625">AME might be more natural.</p>
+      <p begin="01:12:39.375" end="01:12:40.791">If your claim is violent, it spreads</p>
+      <p begin="01:12:40.791" end="01:12:41.500">through networks.</p>
+      <p begin="01:12:41.791" end="01:12:43.291">Diffusion models are more natural.</p>
+      <p begin="01:12:44.166" end="01:12:45.041">And your goal is to</p>
+      <p begin="01:12:45.041" end="01:12:47.791">predict which edges form.</p>
+      <p begin="01:12:48.083" end="01:12:48.750">Graph neural networks</p>
+      <p begin="01:12:48.750" end="01:12:49.625">might be more natural.</p>
+      <p begin="01:12:50.500" end="01:12:52.166">The important point is the model</p>
+      <p begin="01:12:52.166" end="01:12:53.875">choice is a substantive choice.</p>
+      <p begin="01:13:00.000" end="01:13:01.625">So validation is hard in network</p>
+      <p begin="01:13:01.625" end="01:13:03.541">analysis because</p>
+      <p begin="01:13:03.541" end="01:13:05.041">observations are dependent.</p>
+      <p begin="01:13:06.000" end="01:13:08.041">Common challenges include dependence</p>
+      <p begin="01:13:08.041" end="01:13:10.000">across observations, overfitting</p>
+      <p begin="01:13:10.000" end="01:13:11.583">structure, and temporal</p>
+      <p begin="01:13:11.708" end="01:13:12.166">instability.</p>
+      <p begin="01:13:13.500" end="01:13:14.333">So add-assemble</p>
+      <p begin="01:13:14.333" end="01:13:15.333">checks are essential.</p>
+      <p begin="01:13:16.250" end="01:13:17.375">That can mean we want to predict</p>
+      <p begin="01:13:17.375" end="01:13:19.166">held-out edges, training</p>
+      <p begin="01:13:19.166" end="01:13:20.666">on earlier time windows and</p>
+      <p begin="01:13:20.666" end="01:13:22.750">predicting later ones, using null</p>
+      <p begin="01:13:22.750" end="01:13:24.250">models to assess whether our pattern</p>
+      <p begin="01:13:24.250" end="01:13:26.458">is large, whether</p>
+      <p begin="01:13:26.458" end="01:13:28.375">our pattern is more than the degree</p>
+      <p begin="01:13:28.375" end="01:13:30.125">distribution, and then checking</p>
+      <p begin="01:13:30.125" end="01:13:32.041">sensitivity to network instruction.</p>
+      <p begin="01:13:32.916" end="01:13:34.250">But the key lesson is network</p>
+      <p begin="01:13:34.250" end="01:13:36.291">methods can produce compelling</p>
+      <p begin="01:13:36.291" end="01:13:37.708">pictures even when the</p>
+      <p begin="01:13:37.708" end="01:13:38.375">signal is weak.</p>
+      <p begin="01:13:39.250" end="01:13:40.666">The validation is how you separate</p>
+      <p begin="01:13:40.666" end="01:13:42.541">interesting visualization from</p>
+      <p begin="01:13:42.541" end="01:13:43.458">reliable inference.</p>
+      <p begin="01:13:49.875" end="01:13:50.583">So let me summarize</p>
+      <p begin="01:13:50.583" end="01:13:52.458">the habits we emphasized.</p>
+      <p begin="01:13:52.833" end="01:13:53.458">So we want to start</p>
+      <p begin="01:13:53.458" end="01:13:54.916">with clear representation.</p>
+      <p begin="01:13:55.583" end="01:13:57.125">If you can't define nodes and edges</p>
+      <p begin="01:13:57.125" end="01:13:58.583">precisely, nothing</p>
+      <p begin="01:13:58.583" end="01:13:59.500">downstream is stable.</p>
+      <p begin="01:14:00.416" end="01:14:01.583">You want to match your models to</p>
+      <p begin="01:14:01.583" end="01:14:03.083">questions, so don't pick a method</p>
+      <p begin="01:14:03.083" end="01:14:04.125">because it's popular.</p>
+      <p begin="01:14:04.125" end="01:14:04.791">Pick it because it</p>
+      <p begin="01:14:04.791" end="01:14:05.625">answers a question.</p>
+      <p begin="01:14:06.791" end="01:14:07.791">You want to be explicit about</p>
+      <p begin="01:14:07.791" end="01:14:09.500">dependencies, so network data</p>
+      <p begin="01:14:09.500" end="01:14:11.625">violates independence assumptions,</p>
+      <p begin="01:14:12.291" end="01:14:12.541">predicting</p>
+      <p begin="01:14:12.541" end="01:14:13.958">otherwise is a major error.</p>
+      <p begin="01:14:14.750" end="01:14:15.333">And then you want to</p>
+      <p begin="01:14:15.333" end="01:14:16.458">validate aggressively.</p>
+      <p begin="01:14:16.875" end="01:14:18.208">So you want to check sensitivity to</p>
+      <p begin="01:14:18.208" end="01:14:19.916">construction, check out a sample</p>
+      <p begin="01:14:19.916" end="01:14:21.291">performance where relevant,</p>
+      <p begin="01:14:21.583" end="01:14:22.458">and be transparent</p>
+      <p begin="01:14:22.458" end="01:14:23.708">about uncertainty.</p>
+      <p begin="01:14:27.541" end="01:14:28.166">So let me close</p>
+      <p begin="01:14:28.166" end="01:14:29.041">with three questions.</p>
+      <p begin="01:14:29.708" end="01:14:31.083">Would network choices feel most</p>
+      <p begin="01:14:31.083" end="01:14:32.625">consequential in your own work?</p>
+      <p begin="01:14:33.250" end="01:14:34.583">Is the definition of the tie</p>
+      <p begin="01:14:34.583" end="01:14:37.166">directionally, directionality,</p>
+      <p begin="01:14:37.583" end="01:14:39.291">weighting, or temporal aggregation?</p>
+      <p begin="01:14:40.583" end="01:14:42.416">When do black box models make sense?</p>
+      <p begin="01:14:42.708" end="01:14:44.041">Under what conditions, prediction,</p>
+      <p begin="01:14:44.333" end="01:14:45.958">the goal, and what</p>
+      <p begin="01:14:45.958" end="01:14:47.416">interpretability do you need?</p>
+      <p begin="01:14:48.916" end="01:14:49.916">And how should</p>
+      <p begin="01:14:49.916" end="01:14:51.125">uncertainty be communicated?</p>
+      <p begin="01:14:51.708" end="01:14:53.833">Network results often look precise.</p>
+      <p begin="01:14:55.333" end="01:14:56.375">Centratic rankings, community</p>
+      <p begin="01:14:56.375" end="01:14:58.000">labels, diffusion estimates.</p>
+      <p begin="01:14:58.583" end="01:14:59.916">But much of that depends on the</p>
+      <p begin="01:14:59.916" end="01:15:00.875">construction choices.</p>
+      <p begin="01:15:00.916" end="01:15:02.625">So how do we communicate that</p>
+      <p begin="01:15:02.625" end="01:15:03.500">dependence quarterly?</p>
+    </div>
+  </body>
+</tt>

@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tt xml:lang="en" xmlns="http://www.w3.org/ns/ttml" xmlns:ttm="http://www.w3.org/ns/ttml#metadata" xmlns:tts="http://www.w3.org/ns/ttml#styling" xmlns:ttp="http://www.w3.org/ns/ttml#parameter" xmlns:ittp="http://www.w3.org/ns/ttml/profile/imsc1#parameter" xmlns:itts="http://www.w3.org/ns/ttml/profile/imsc1#styling" ttp:profile="http://www.w3.org/ns/ttml/profile/imsc1/text" ttp:frameRate="24" ttp:timeBase="media">
+  <head>
+    <styling>
+      <style xml:id="s0" tts:color="#ffffff" tts:opacity="1" tts:fontSize="100%" tts:fontFamily="proportionalSansSerif" tts:fontWeight="bold" tts:textOutline="#ffffff 1px" tts:textAlign="center"/>
+    </styling>
+    <layout>
+      <region xml:id="r0" tts:origin="0.000% 65.709%" tts:extent="100.000% 28.611%" tts:displayAlign="center"/>
+    </layout>
+  </head>
+  <body>
+    <div xml:id="d0" region="r0" style="s0">
+      <p begin="01:00:02.875" end="01:00:04.166">Hi everyone, welcome to, we're going</p>
+      <p begin="01:00:04.166" end="01:00:06.291">to be covering databases in SQL.</p>
+      <p begin="01:00:07.375" end="01:00:08.083">I also pronounce</p>
+      <p begin="01:00:08.083" end="01:00:09.625">SQL for social data.</p>
+      <p begin="01:00:10.208" end="01:00:11.500">A goal in this lecture is going to</p>
+      <p begin="01:00:11.500" end="01:00:12.625">be to give you a</p>
+      <p begin="01:00:12.625" end="01:00:14.166">working mental model for why</p>
+      <p begin="01:00:14.166" end="01:00:15.750">databases matter for research</p>
+      <p begin="01:00:15.750" end="01:00:17.166">workflows, what it</p>
+      <p begin="01:00:17.166" end="01:00:18.458">means to think relationally,</p>
+      <p begin="01:00:18.750" end="01:00:21.000">how SQL fits in, and what the</p>
+      <p begin="01:00:21.000" end="01:00:22.083">biggest failure modes</p>
+      <p begin="01:00:22.083" end="01:00:23.333">are when you're starting</p>
+      <p begin="01:00:23.333" end="01:00:24.541">to join tables together.</p>
+      <p begin="01:00:27.708" end="01:00:29.250">So let's start with the motivation.</p>
+      <p begin="01:00:29.750" end="01:00:30.750">Why do databases matter?</p>
+      <p begin="01:00:31.750" end="01:00:33.958">As your data scale increases, flat</p>
+      <p begin="01:00:33.958" end="01:00:35.875">files start to break down in</p>
+      <p begin="01:00:35.875" end="01:00:36.666">predictable ways.</p>
+      <p begin="01:00:37.500" end="01:00:39.083">First, flat files become fragile.</p>
+      <p begin="01:00:39.375" end="01:00:40.791">It becomes easy to lose track of</p>
+      <p begin="01:00:40.791" end="01:00:41.541">versions, to</p>
+      <p begin="01:00:41.541" end="01:00:42.833">overwrite something, or to</p>
+      <p begin="01:00:42.833" end="01:00:43.958">make one small change</p>
+      <p begin="01:00:43.958" end="01:00:44.958">that isn't documented.</p>
+      <p begin="01:00:46.000" end="01:00:48.000">Second, joins become expensive, both</p>
+      <p begin="01:00:48.000" end="01:00:49.583">computational and cognitively.</p>
+      <p begin="01:00:50.083" end="01:00:52.041">When you repeatedly merge large CSV</p>
+      <p begin="01:00:52.041" end="01:00:53.208">and Python or R,</p>
+      <p begin="01:00:53.625" end="01:00:54.625">you often end up with</p>
+      <p begin="01:00:54.625" end="01:00:56.583">slow pipelines and hard to diagnose</p>
+      <p begin="01:00:56.583" end="01:00:57.583">road or duplication.</p>
+      <p begin="01:00:58.875" end="01:01:00.541">And third, reproducibility suffers.</p>
+      <p begin="01:01:01.166" end="01:01:03.041">When your workflow relies on manual</p>
+      <p begin="01:01:03.041" end="01:01:04.916">exports, GIU setups</p>
+      <p begin="01:01:04.916" end="01:01:06.416">or sequence or merges</p>
+      <p begin="01:01:06.416" end="01:01:08.041">that only lives in your head, it</p>
+      <p begin="01:01:08.041" end="01:01:08.958">becomes difficult for</p>
+      <p begin="01:01:08.958" end="01:01:10.666">someone else or future</p>
+      <p begin="01:01:10.750" end="01:01:12.083">you to reproduce the results.</p>
+      <p begin="01:01:13.000" end="01:01:14.416">So databases help because they</p>
+      <p begin="01:01:14.416" end="01:01:16.333">provide structure, integrating</p>
+      <p begin="01:01:16.458" end="01:01:17.750">constraints and performance.</p>
+      <p begin="01:01:21.125" end="01:01:21.750">So this slide</p>
+      <p begin="01:01:21.750" end="01:01:22.958">introduces the key shift.</p>
+      <p begin="01:01:23.166" end="01:01:24.375">We're going to think relationally.</p>
+      <p begin="01:01:24.833" end="01:01:26.916">Relational databases, organized data</p>
+      <p begin="01:01:26.916" end="01:01:29.166">as tables, rows, which are records,</p>
+      <p begin="01:01:29.583" end="01:01:30.791">columns, which are attributes.</p>
+      <p begin="01:01:31.583" end="01:01:33.000">The main point is that the meaning</p>
+      <p begin="01:01:33.000" end="01:01:34.041">of your data often</p>
+      <p begin="01:01:34.041" end="01:01:35.416">isn't contained in one</p>
+      <p begin="01:01:35.458" end="01:01:38.458">table, meaning emerges from the</p>
+      <p begin="01:01:38.458" end="01:01:39.958">relationships across tables.</p>
+      <p begin="01:01:40.708" end="01:01:42.416">So instead of imagining one master</p>
+      <p begin="01:01:42.416" end="01:01:44.000">data set, you start</p>
+      <p begin="01:01:44.000" end="01:01:45.833">imagining a system of</p>
+      <p begin="01:01:45.833" end="01:01:47.208">entities, things like events,</p>
+      <p begin="01:01:47.500" end="01:01:47.916">actors,</p>
+      <p begin="01:01:47.916" end="01:01:49.875">organizations, locations, and then</p>
+      <p begin="01:01:49.916" end="01:01:50.708">links among them.</p>
+      <p begin="01:01:54.416" end="01:01:56.375">So this slide is a reminder that a</p>
+      <p begin="01:01:56.375" end="01:01:57.458">table is not the same</p>
+      <p begin="01:01:57.458" end="01:01:58.458">thing as a data set.</p>
+      <p begin="01:01:59.166" end="01:02:02.000">A table should usually represent one</p>
+      <p begin="01:02:02.000" end="01:02:03.625">entity type and one</p>
+      <p begin="01:02:03.625" end="01:02:04.625">level of analysis.</p>
+      <p begin="01:02:05.458" end="01:02:06.625">So you might have a table of</p>
+      <p begin="01:02:06.625" end="01:02:07.875">countries, a table</p>
+      <p begin="01:02:07.875" end="01:02:09.208">of events, a table of</p>
+      <p begin="01:02:09.208" end="01:02:10.458">participants, each table</p>
+      <p begin="01:02:10.458" end="01:02:11.625">is coherent on its own.</p>
+      <p begin="01:02:12.750" end="01:02:14.166">When you want to answer complex</p>
+      <p begin="01:02:14.166" end="01:02:15.000">questions like</p>
+      <p begin="01:02:15.000" end="01:02:16.500">linking events to country</p>
+      <p begin="01:02:16.500" end="01:02:18.208">attributes or aggregating event</p>
+      <p begin="01:02:18.208" end="01:02:19.708">counts by country,</p>
+      <p begin="01:02:20.208" end="01:02:21.291">you do that by combining</p>
+      <p begin="01:02:21.416" end="01:02:23.000">tables rather than stuffing</p>
+      <p begin="01:02:23.000" end="01:02:24.958">everything into one giant file.</p>
+      <p begin="01:02:31.333" end="01:02:33.125">So how do we get to one of the most</p>
+      <p begin="01:02:33.125" end="01:02:33.958">important ideas,</p>
+      <p begin="01:02:34.208" end="01:02:35.000">keys and identifiers?</p>
+      <p begin="01:02:35.958" end="01:02:38.208">Relational databases rely on primary</p>
+      <p begin="01:02:38.208" end="01:02:40.333">keys, foreign keys,</p>
+      <p begin="01:02:40.333" end="01:02:41.208">and stable identifiers.</p>
+      <p begin="01:02:42.000" end="01:02:43.916">A primary key uniquely identifies</p>
+      <p begin="01:02:43.916" end="01:02:45.000">each row in a table.</p>
+      <p begin="01:02:45.458" end="01:02:46.958">A foreign key is a column that</p>
+      <p begin="01:02:46.958" end="01:02:48.458">points to the primary key in another</p>
+      <p begin="01:02:48.500" end="01:02:50.083">table, creating the relationship.</p>
+      <p begin="01:02:51.125" end="01:02:53.125">I want to emphasize the last line in</p>
+      <p begin="01:02:53.125" end="01:02:55.000">the slide, keys and</p>
+      <p begin="01:02:55.000" end="01:02:56.333">code assumptions about</p>
+      <p begin="01:02:56.416" end="01:03:01.000">identity. If your country identifier</p>
+      <p begin="01:03:01.000" end="01:03:03.125">changes over time or your actor</p>
+      <p begin="01:03:03.208" end="01:03:05.083">identifiers are unstable, you end up</p>
+      <p begin="01:03:05.083" end="01:03:06.000">baking ambiguity</p>
+      <p begin="01:03:06.000" end="01:03:07.000">into the structure of</p>
+      <p begin="01:03:07.000" end="01:03:09.125">the database. So good database</p>
+      <p begin="01:03:09.125" end="01:03:10.750">design starts with the</p>
+      <p begin="01:03:10.750" end="01:03:11.791">question, what counts</p>
+      <p begin="01:03:11.791" end="01:03:14.166">as the same entity and what's the</p>
+      <p begin="01:03:14.166" end="01:03:15.625">stable identifier for it?</p>
+      <p begin="01:03:19.041" end="01:03:21.000">So this slide refrains schemas as a</p>
+      <p begin="01:03:21.000" end="01:03:21.875">measurement decision.</p>
+      <p begin="01:03:22.583" end="01:03:24.291">A schema specifies the table</p>
+      <p begin="01:03:24.291" end="01:03:26.125">structure, the variable</p>
+      <p begin="01:03:26.125" end="01:03:27.208">types, and the allowed</p>
+      <p begin="01:03:27.291" end="01:03:30.500">values. This means schema design is</p>
+      <p begin="01:03:30.500" end="01:03:32.541">not a natural technical step, it's a</p>
+      <p begin="01:03:32.541" end="01:03:35.041">modeling choice. For example, do you</p>
+      <p begin="01:03:35.041" end="01:03:37.833">store a date as a string, an integer</p>
+      <p begin="01:03:37.958" end="01:03:41.583">year, or a real date type, or do you</p>
+      <p begin="01:03:41.583" end="01:03:42.583">allow missing values?</p>
+      <p begin="01:03:43.125" end="01:03:44.958">You can train a variable to the</p>
+      <p begin="01:03:44.958" end="01:03:45.583">fixed set of</p>
+      <p begin="01:03:45.583" end="01:03:47.833">categories. These decisions</p>
+      <p begin="01:03:47.958" end="01:03:49.500">shape what kinds of errors are</p>
+      <p begin="01:03:49.500" end="01:03:50.458">possible and how</p>
+      <p begin="01:03:50.458" end="01:03:51.625">easy it is to maintain</p>
+      <p begin="01:03:51.708" end="01:03:53.333">consistency across a project.</p>
+      <p begin="01:03:57.291" end="01:03:59.833">So SQL is a query language for what</p>
+      <p begin="01:03:59.833" end="01:04:00.708">is this? So this</p>
+      <p begin="01:04:00.708" end="01:04:01.791">slide introduces SQL.</p>
+      <p begin="01:04:02.166" end="01:04:03.958">SQL is the language for expressing</p>
+      <p begin="01:04:03.958" end="01:04:05.083">what data you want,</p>
+      <p begin="01:04:05.583" end="01:04:07.416">how tables relate, how</p>
+      <p begin="01:04:07.416" end="01:04:09.041">results are filtered and aggregated.</p>
+      <p begin="01:04:09.750" end="01:04:11.000">And it's important that SQL is</p>
+      <p begin="01:04:11.000" end="01:04:13.041">declarative. You describe what you</p>
+      <p begin="01:04:13.041" end="01:04:14.291">want, not a step by</p>
+      <p begin="01:04:14.291" end="01:04:15.708">step how to compute it.</p>
+      <p begin="01:04:16.583" end="01:04:18.208">Then the database engine handles</p>
+      <p begin="01:04:18.208" end="01:04:20.333">optimization. So in</p>
+      <p begin="01:04:20.333" end="01:04:21.250">your head, you can</p>
+      <p begin="01:04:21.250" end="01:04:23.500">separate your intent, which you</p>
+      <p begin="01:04:23.500" end="01:04:25.541">express in SQL, and</p>
+      <p begin="01:04:25.541" end="01:04:26.416">then the implementation</p>
+      <p begin="01:04:26.625" end="01:04:29.125">details which are in the engine that</p>
+      <p begin="01:04:29.125" end="01:04:30.416">it manages for you.</p>
+      <p begin="01:04:35.041" end="01:04:37.833">So some basic SQL patterns that I</p>
+      <p begin="01:04:37.833" end="01:04:38.666">want to just go over.</p>
+      <p begin="01:04:39.125" end="01:04:40.333">Here's the most basic</p>
+      <p begin="01:04:40.500" end="01:04:42.625">one, you have a select for your</p>
+      <p begin="01:04:42.625" end="01:04:45.416">column, you specify a</p>
+      <p begin="01:04:45.416" end="01:04:48.375">from for your table, and</p>
+      <p begin="01:04:48.375" end="01:04:51.125">then you use where to filter. So</p>
+      <p begin="01:04:51.125" end="01:04:52.791">this is and then you</p>
+      <p begin="01:04:52.791" end="01:04:53.666">have a declarative.</p>
+      <p begin="01:04:53.708" end="01:04:55.333">Basically, this just declarative and</p>
+      <p begin="01:04:55.333" end="01:04:56.875">not procedural. So</p>
+      <p begin="01:04:56.875" end="01:04:58.791">select everything from</p>
+      <p begin="01:04:58.833" end="01:05:01.291">events where with the boot B is</p>
+      <p begin="01:05:01.291" end="01:05:01.833">you're going to select</p>
+      <p begin="01:05:01.833" end="01:05:04.375">everything from events</p>
+      <p begin="01:05:04.708" end="01:05:06.291">when the year is greater than 2020</p>
+      <p begin="01:05:06.291" end="01:05:07.583">in this example here.</p>
+      <p begin="01:05:08.208" end="01:05:09.791">But you're starting with a</p>
+      <p begin="01:05:09.833" end="01:05:11.375">target sub chat, you're not writing</p>
+      <p begin="01:05:11.375" end="01:05:13.291">a for loop in this case.</p>
+      <p begin="01:05:18.833" end="01:05:20.000">So this slide is one of the most</p>
+      <p begin="01:05:20.000" end="01:05:21.958">important the deck joins</p>
+      <p begin="01:05:21.958" end="01:05:24.500">and code theory. A join</p>
+      <p begin="01:05:24.500" end="01:05:27.125">combines tables via keys. The</p>
+      <p begin="01:05:27.125" end="01:05:29.208">example joins an event table to the</p>
+      <p begin="01:05:29.208" end="01:05:30.500">country table using a</p>
+      <p begin="01:05:30.500" end="01:05:32.750">country identifier. So the key point</p>
+      <p begin="01:05:32.750" end="01:05:34.750">is which join you choose changes</p>
+      <p begin="01:05:34.750" end="01:05:36.291">your results. If you</p>
+      <p begin="01:05:36.333" end="01:05:38.333">do an inner join, you drop rows that</p>
+      <p begin="01:05:38.333" end="01:05:41.625">don't match. If you do a</p>
+      <p begin="01:05:41.625" end="01:05:42.708">left join, you get the left</p>
+      <p begin="01:05:42.750" end="01:05:45.791">table and add what matches. And if</p>
+      <p begin="01:05:45.791" end="01:05:47.375">you join in the wrong key, then you</p>
+      <p begin="01:05:47.375" end="01:05:48.375">silently multiply</p>
+      <p begin="01:05:48.458" end="01:05:51.541">rows. So joining is not just a</p>
+      <p begin="01:05:51.541" end="01:05:53.166">technical operation embodies</p>
+      <p begin="01:05:53.166" end="01:05:54.500">assumptions about what</p>
+      <p begin="01:05:54.500" end="01:05:56.375">should match what should be excluded</p>
+      <p begin="01:05:56.375" end="01:05:57.291">and how to map</p>
+      <p begin="01:05:57.291" end="01:05:58.666">concepts across sources.</p>
+      <p begin="01:05:59.791" end="01:06:05.083">So how to switch to performance</p>
+      <p begin="01:06:05.083" end="01:06:07.000">indexes, indexes speed up our</p>
+      <p begin="01:06:07.000" end="01:06:08.500">queries, but they increase</p>
+      <p begin="01:06:08.500" end="01:06:10.541">right costs. The practical</p>
+      <p begin="01:06:10.541" end="01:06:13.041">translation is indices make reading</p>
+      <p begin="01:06:13.041" end="01:06:14.291">faster, but</p>
+      <p begin="01:06:14.291" end="01:06:15.666">updating or uncertain can</p>
+      <p begin="01:06:15.666" end="01:06:17.250">become slower because the database</p>
+      <p begin="01:06:17.250" end="01:06:19.125">has to maintain the index structure.</p>
+      <p begin="01:06:20.291" end="01:06:21.958">So indices also reflect</p>
+      <p begin="01:06:21.958" end="01:06:25.875">expected access patterns. So</p>
+      <p begin="01:06:25.875" end="01:06:26.958">indexing choices imply how to expect to use the data. So the</p>
+      <p begin="01:06:39.916" end="01:06:41.166">slide makes the research workflow</p>
+      <p begin="01:06:41.166" end="01:06:43.250">point, you do not need a server to</p>
+      <p begin="01:06:43.250" end="01:06:44.416">benefit from these databases.</p>
+      <p begin="01:06:45.041" end="01:06:46.541">There are two common embedded</p>
+      <p begin="01:06:46.541" end="01:06:47.833">database options here, we have SQL lite or SQL lite. And <br/>then duct DB.</p>
+      <p begin="01:06:47.833" end="01:07:04.250">These run locally require no secret. These are the most <br/>common data sources. So these are the most common data <br/>sources. So for many social science projects and</p>
+      <p begin="01:07:04.250" end="01:07:05.625">embedded data set as a sweet</p>
+      <p begin="01:07:05.625" end="01:07:07.708">spot, it's structured is fast and</p>
+      <p begin="01:07:07.708" end="01:07:09.625">it's easy to share as a file. So here's a simple Python <br/>example</p>
+      <p begin="01:07:13.750" end="01:07:18.708">using duct DB. The script connects a</p>
+      <p begin="01:07:18.708" end="01:07:23.666">duct DB data set file, you run a</p>
+      <p begin="01:07:23.666" end="01:07:26.041">query here, we're going to</p>
+      <p begin="01:07:26.041" end="01:07:27.750">execute your selecting the year,</p>
+      <p begin="01:07:28.458" end="01:07:31.000">you're counting here from events,</p>
+      <p begin="01:07:31.000" end="01:07:32.291">and then you're grouping by year.</p>
+      <p begin="01:07:33.291" end="01:07:34.500">And then you're fetching it for it.</p>
+      <p begin="01:07:35.041" end="01:07:36.208">So instead of exporting an S and CSV, opening it, filtering,</p>
+      <p begin="01:07:36.250" end="01:07:40.833">merging it, saving it again, your</p>
+      <p begin="01:07:40.833" end="01:07:42.583">pipeline can just run a query and</p>
+      <p begin="01:07:42.583" end="01:07:44.000">move directly into analysis.</p>
+      <p begin="01:07:47.500" end="01:07:49.000">And then here's the same syntax and</p>
+      <p begin="01:07:49.000" end="01:07:51.541">R we have the data duct DB</p>
+      <p begin="01:07:51.541" end="01:07:52.916">connecting in here,</p>
+      <p begin="01:07:54.083" end="01:07:55.416">con here, we're selecting year,</p>
+      <p begin="01:07:55.875" end="01:07:57.916">doing counts from the events and</p>
+      <p begin="01:07:57.916" end="01:07:58.625">we're grouping by year.</p>
+      <p begin="01:07:58.666" end="01:08:07.208">So this slide position SQL lite is a</p>
+      <p begin="01:08:07.208" end="01:08:10.416">very practical option for it SQL</p>
+      <p begin="01:08:10.416" end="01:08:11.291">lite is a file</p>
+      <p begin="01:08:11.291" end="01:08:12.708">based widely supported.</p>
+      <p begin="01:08:13.416" end="01:08:14.916">And it works well for moderate sized</p>
+      <p begin="01:08:14.916" end="01:08:16.958">data as option is sufficient for</p>
+      <p begin="01:08:16.958" end="01:08:18.333">social science product objects.</p>
+      <p begin="01:08:19.208" end="01:08:20.875">So if you're deciding between tools,</p>
+      <p begin="01:08:21.458" end="01:08:25.375">SQL lite is the default simple and</p>
+      <p begin="01:08:25.375" end="01:08:27.375">reliable option duct DB is</p>
+      <p begin="01:08:27.625" end="01:08:29.333">particularly strong when you want</p>
+      <p begin="01:08:29.333" end="01:08:31.666">fast analytics style queries and</p>
+      <p begin="01:08:31.666" end="01:08:33.791">easy integration from modern data</p>
+      <p begin="01:08:33.791" end="01:08:39.666">framework flows. So we make the best</p>
+      <p begin="01:08:39.666" end="01:08:41.500">practice statement here or query</p>
+      <p begin="01:08:41.500" end="01:08:42.625">from analysis codes,</p>
+      <p begin="01:08:42.833" end="01:08:43.958">the best practices is we want to</p>
+      <p begin="01:08:43.958" end="01:08:46.458">keep our SQL in strings or files,</p>
+      <p begin="01:08:47.333" end="01:08:49.000">want to call Python or R,</p>
+      <p begin="01:08:49.458" end="01:08:52.500">when avoid manual exports here, we</p>
+      <p begin="01:08:52.500" end="01:08:53.583">want to treat our queries</p>
+      <p begin="01:08:53.583" end="01:08:54.291">as part of the pipeline.</p>
+      <p begin="01:08:55.250" end="01:08:57.375">So the reason is reproducibility. If</p>
+      <p begin="01:08:57.375" end="01:08:59.458">the query defines how the analytic</p>
+      <p begin="01:08:59.458" end="01:09:00.666">data set is constructed,</p>
+      <p begin="01:09:01.166" end="01:09:03.333">then that query should be versioned</p>
+      <p begin="01:09:03.333" end="01:09:05.458">and rerunnable like any part of your</p>
+      <p begin="01:09:05.458" end="01:09:07.083">project pipeline.</p>
+      <p begin="01:09:11.541" end="01:09:13.250">So this slide summarizes why</p>
+      <p begin="01:09:13.250" end="01:09:14.958">databases help reproducibility</p>
+      <p begin="01:09:14.958" end="01:09:17.000">databases support explicit</p>
+      <p begin="01:09:17.166" end="01:09:20.250">schemas, version queries, consistent</p>
+      <p begin="01:09:20.250" end="01:09:23.166">joins, audible transformations, and</p>
+      <p begin="01:09:23.166" end="01:09:24.541">they reduce hidden</p>
+      <p begin="01:09:24.583" end="01:09:26.791">manipulation. If you do data</p>
+      <p begin="01:09:26.791" end="01:09:29.500">construction in SQL and call from</p>
+      <p begin="01:09:29.500" end="01:09:31.458">scripts, the data pipeline becomes</p>
+      <p begin="01:09:31.708" end="01:09:34.000">inspectable. So we can see exactly</p>
+      <p begin="01:09:34.000" end="01:09:36.375">how the analytic table was created</p>
+      <p begin="01:09:36.375" end="01:09:38.083">and here we produce it from raw</p>
+      <p begin="01:09:38.125" end="01:09:43.083">tables. So what are some common</p>
+      <p begin="01:09:43.083" end="01:09:46.708">failure failure modes for this? Some</p>
+      <p begin="01:09:46.708" end="01:09:47.750">common problems are things</p>
+      <p begin="01:09:47.791" end="01:09:51.333">like implicit joins, duplicated</p>
+      <p begin="01:09:51.333" end="01:09:53.791">rows, missing keys are silent to</p>
+      <p begin="01:09:53.791" end="01:09:55.916">many, many merges. These are where</p>
+      <p begin="01:09:55.916" end="01:09:57.750">mistakes happen in practice, you</p>
+      <p begin="01:09:57.750" end="01:09:59.583">join two tables and the row count</p>
+      <p begin="01:09:59.583" end="01:10:02.000">jumps unexpectedly, or duplicates</p>
+      <p begin="01:10:02.125" end="01:10:04.458">appear, or missing keys quietly drop</p>
+      <p begin="01:10:04.458" end="01:10:07.291">cases. So the key habit is you want</p>
+      <p begin="01:10:07.291" end="01:10:08.333">to always inspect your</p>
+      <p begin="01:10:08.333" end="01:10:10.458">join results, but at a minimum you</p>
+      <p begin="01:10:10.458" end="01:10:12.083">want to check your row count's pre</p>
+      <p begin="01:10:12.083" end="01:10:14.125">and post joins, inspect</p>
+      <p begin="01:10:14.208" end="01:10:17.041">duplicates on the supposed key, and</p>
+      <p begin="01:10:17.041" end="01:10:21.541">verify the join is working the way</p>
+      <p begin="01:10:21.541" end="01:10:22.416">that you think it should be.</p>
+      <p begin="01:10:22.458" end="01:10:29.166">So here's a takeaway list of the</p>
+      <p begin="01:10:29.166" end="01:10:30.416">things to emphasize. We want to</p>
+      <p begin="01:10:30.416" end="01:10:31.666">design schemas deliberately,</p>
+      <p begin="01:10:32.416" end="01:10:33.666">use SQL for database</p>
+      <p begin="01:10:33.666" end="01:10:35.750">pre-construction, query from</p>
+      <p begin="01:10:35.750" end="01:10:37.416">scripts, not GAUIs,</p>
+      <p begin="01:10:37.750" end="01:10:38.791">and then treat joins</p>
+      <p begin="01:10:38.791" end="01:10:41.291">as theoretical choices. This is the</p>
+      <p begin="01:10:41.291" end="01:10:43.000">methods framing for it. Database</p>
+      <p begin="01:10:43.000" end="01:10:44.250">design is part of our</p>
+      <p begin="01:10:44.250" end="01:10:46.375">measurement and joining is part of</p>
+      <p begin="01:10:46.375" end="01:10:50.500">our inference. And then some key</p>
+      <p begin="01:10:50.500" end="01:10:51.625">discussion questions leave you</p>
+      <p begin="01:10:51.666" end="01:10:54.416">with. So what entities matter in</p>
+      <p begin="01:10:54.416" end="01:10:57.500">your data? Where do your joins</p>
+      <p begin="01:10:57.500" end="01:11:00.250">encode assumptions? And how does SQL</p>
+      <p begin="01:11:00.916" end="01:11:03.041">outperform flat files? Or it's</p>
+      <p begin="01:11:03.041" end="01:11:04.291">generally more working with very</p>
+      <p begin="01:11:04.291" end="01:11:06.208">large data. If you internalize</p>
+      <p begin="01:11:06.208" end="01:11:07.458">these questions, you'll make better</p>
+      <p begin="01:11:07.458" end="01:11:08.875">choices about when you use</p>
+      <p begin="01:11:08.875" end="01:11:09.291">relational</p>
+      <p begin="01:11:09.291" end="01:11:10.708">databases, how to structure</p>
+      <p begin="01:11:10.708" end="01:11:11.791">them, and how to avoid</p>
+      <p begin="01:11:11.791" end="01:11:12.875">the most common errors.</p>
+    </div>
+  </body>
+</tt>
