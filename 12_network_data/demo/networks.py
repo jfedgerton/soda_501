@@ -198,7 +198,12 @@ plt.show()
 # - Sparse matrices are essential for large graphs.
 # - Dense adjacency is O(n^2) memory, which becomes impossible quickly.
 
-A = nx.to_scipy_sparse_array(G2, format="csr", dtype=np.float32)
+A = nx.to_scipy_sparse_array(
+    G2,
+    nodelist=np.arange(num_nodes),
+    format="csr",
+    dtype=np.float32
+)
 print("\nAdjacency matrix:")
 print("  Shape:", A.shape)
 print("  Nonzeros:", A.nnz)
