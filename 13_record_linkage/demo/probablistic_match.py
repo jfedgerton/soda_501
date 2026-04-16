@@ -196,19 +196,26 @@ print("Number of candidate pairs after blocking:", len(candidate_pairs))
 # Step 4B: Create similarity features (comparisons)
 # -----------------------------------------------------------------------------
 # We'll create a feature matrix with one row per candidate pair.
-# Features:
-# - firstname similarity (Jaro-Winkler)
-# - lastname similarity (Jaro-Winkler)
-# - birthyear similarity (Gaussian similarity around equality)
-# - zipcode exact match (should mostly be 1 due to blocking, but we keep it explicit)
+# Features are BINARIZED (0/1) because ECMClassifier expects binary agree/disagree
+# vectors (this is a core assumption of the Fellegi-Sunter model).
+# The threshold parameter converts continuous similarity to binary:
+#   1 if similarity >= threshold, 0 otherwise.
+# - firstname: Jaro-Winkler >= 0.85 -> 1 (agree)
+# - lastname:  Jaro-Winkler >= 0.85 -> 1 (agree)
+# - birthyear: Gaussian similarity >= 0.5 -> 1 (agree) [binarized after compute]
+# - zipcode:   exact match (already binary)
 
 compare = rl.Compare()
-compare.string("firstname", "firstname", method="jarowinkler", label="firstname_sim")
-compare.string("lastname",  "lastname",  method="jarowinkler", label="lastname_sim")
+compare.string("firstname", "firstname", method="jarowinkler", threshold=0.85, label="firstname_sim")
+compare.string("lastname",  "lastname",  method="jarowinkler", threshold=0.85, label="lastname_sim")
 compare.numeric("birthyear", "birthyear", method="gauss", offset=0, scale=2, label="birthyear_sim")
 compare.exact("zipcode", "zipcode", label="zipcode_exact")
 
 features = compare.compute(candidate_pairs, df_a, df_b)
+
+# Binarize birthyear_sim (numeric comparison doesn't support threshold parameter)
+# Values >= 0.5 are treated as "agree"
+features["birthyear_sim"] = (features["birthyear_sim"] >= 0.5).astype(int)
 
 print(features.head())
 

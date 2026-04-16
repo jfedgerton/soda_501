@@ -251,17 +251,22 @@ comp_data_by_match <- data.frame()
 
 for (i in seq(0.1, 1, 0.1)) {
 
-  try({temp_data <- matches_low %>%
+  temp_data <- matches_low %>%
     filter(
       posterior > i - 0.1,
       posterior <= i
     )
+
+  # Skip empty bins — not all posterior probability ranges will have matches
+  if (nrow(temp_data) == 0) next
 
   df_a_temp <- df_a %>% filter(id %in% temp_data$id)
   df_b_temp <- df_b %>% filter(id %in% temp_data$id)
 
   compare_data <- df_a_temp %>%
     inner_join(df_b_temp, by = "id", suffix = c(".a", ".b"))
+
+  if (nrow(compare_data) == 0) next
 
   # Levenshtein distance (lv) measures how many edits it takes to transform one string into another
   string_dist_fname <- stringdist(compare_data$firstname.a, compare_data$firstname.b, method = "lv")
@@ -279,7 +284,7 @@ for (i in seq(0.1, 1, 0.1)) {
       threshold_bin = paste0(i - 0.1, "-", i),
       count_in_bin = nrow(compare_data)
     )
-  )})
+  )
 }
 
 # Optional visualization: average distance by posterior bin
