@@ -11,7 +11,7 @@
 #   5) Running basic quality checks (speeding, attention checks, straightlining)
 #   6) Saving a cleaned dataset for analysis
 #
-# Week 04 context:
+# Week  context:
 # - Surveys, Platforms, and Crowdsourcing
 # - Coding lab: survey exports; cleaning; codebooks; labeling; quality checks.
 # - Pre-class video: Data quality, missingness, and measurement in platform data.
@@ -208,7 +208,7 @@ codebook = pd.DataFrame(
 )
 
 print(codebook)
-codebook.to_csv("outputs/week04_codebook.csv", index=False)
+codebook.to_csv("outputs/codebook.csv", index=False)
 
 # -----------------------------------------------------------------------------
 # Part 4: Labeling --- variable labels and value labels
@@ -311,7 +311,7 @@ print("------------------------------")
 print("Before:", len(survey_clean))
 print("After: ", len(survey_final), "\n")
 
-survey_final.to_csv("data_processed/week04_survey_clean.csv", index=False)
+survey_final.to_csv("data_processed/survey_clean.csv", index=False)
 
 # -----------------------------------------------------------------------------
 # Part 7: Quick visual checks (plots)
@@ -322,7 +322,7 @@ plt.title("Survey Duration Distribution")
 plt.xlabel("Duration (seconds)")
 plt.ylabel("Count")
 plt.tight_layout()
-plt.savefig("figures/week04_duration_hist.png", dpi=200)
+plt.savefig("figures/duration_hist.png", dpi=200)
 plt.close()
 
 plt.figure()
@@ -331,7 +331,7 @@ plt.title("Missingness Share Across Key Variables")
 plt.xlabel("Share missing (per respondent)")
 plt.ylabel("Count")
 plt.tight_layout()
-plt.savefig("figures/week04_missingness_hist.png", dpi=200)
+plt.savefig("figures/missingness_hist.png", dpi=200)
 plt.close()
 
 platform_flags = (
@@ -369,7 +369,7 @@ axes[1].tick_params(axis="x", rotation=20)
 
 fig.suptitle("Share Flagged by Platform (Toy Data)")
 fig.tight_layout()
-fig.savefig("figures/week04_flags_by_platform.png", dpi=200)
+fig.savefig("figures/flags_by_platform.png", dpi=200)
 plt.close(fig)
 
 # -----------------------------------------------------------------------------
@@ -388,4 +388,4 @@ scale_summary = (
 )
 
 print(scale_summary)
-scale_summary.to_csv("outputs/week04_policy_scale_by_party.csv", index=False)
+scale_summary.to_csv("outputs/policy_scale_by_party.csv", index=False)
